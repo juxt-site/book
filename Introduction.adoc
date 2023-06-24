@@ -4,7 +4,7 @@
 == What is Site?
 
 [.lead]
-Site is a place to keep records.
+Site is a place to keep digital records.
 
 Site provides access to records over HTTPS. To supoprt this, each record is
 identified with a Uniform Resource Identifier (URIs) and becomes a web resource.

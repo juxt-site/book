@@ -3,7 +3,7 @@ Malcolm Sparks <mal@juxt.pro>
 v1.0, 2022-06-21
 :doctype: book
 :toc: left
-:toclevels: 1
+:toclevels: 2
 :sectnums:
 :sectnumlevels: 4
 :xrefstyle: short
@@ -37,7 +37,28 @@ include::Principles.adoc[leveloffset=+3]
 
 = Getting Started
 
-include::GettingStarted.adoc[leveloffset=+1]
+Follow this guide to get up-and-running with your very own Site instance, running locally on your machine.
+If you wish to install Site in production, refer to <<ch-installation>>.
+
+[NOTE]
+--
+All these instructions are for Arch Linux, please amend accordingly for your own platform, if different.
+Run each command under your user account (i.e. not as root).
+--
+
+include::GSPreparation.adoc[leveloffset=+1]
+
+include::GSStartup.adoc[leveloffset=+1]
+
+include::GSBootstrapping.adoc[leveloffset=+1]
+
+include::GSClient.adoc[leveloffset=+1]
+
+include::GSUsers.adoc[leveloffset=+1]
+
+include::GSTokenIntrospection.adoc[leveloffset=+1]
+
+include::GSTSwagger.adoc[leveloffset=+1]
 
 = Foundations
 

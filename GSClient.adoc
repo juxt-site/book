@@ -1,0 +1,63 @@
+= Using the site command-line tool
+:toc: left
+
+In this chapter, we'll use the *site* tool to called the System API of the Site instance we've started.
+
+== Configuration
+
+First, create a file called `$HOME/.config/site/site-cli.yaml` with the following content:
+
+----
+---
+resource_server:
+  base_uri: http://localhost:4444
+
+authorization_server:
+  base_uri: http://localhost:4440
+
+client_credentials:
+  ask_for_client_secret: true
+  cache_client_secret: true
+
+curl:
+  save_bearer_token_to_default_config_file: true
+----
+
+This tells the *site* tool the location of the Site instance to use.
+The Site instance we have set up hosts both an _authorization server_ (AS) and a _resource server_ (RS).
+In other configurations, these servers may run on separate hosts.
+
+== Acquiring a bearer token
+
+Before the *site* tool can access our Site instance's System API, it needs to acquire a bearer token.
+From the configuration we established, the token is saved to `$HOME/.curlrc`.
+
+[IMPORTANT]
+--
+Acquire and store a bearer token:
+
+----
+site request-token
+----
+--
+
+This should output something similar to the following:
+
+----
+Reading client-secret from $HOME/.cache/site/client-secrets/site-cli
+Bearer token saved to $HOME/.curlrc
+Access token expires in 86400 seconds
+----
+
+You can display the token with the following:
+
+----
+site check-token
+----
+
+This should return a JSON object containing a property for `"bearer-token"`.
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

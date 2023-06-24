@@ -1,0 +1,56 @@
+= Users
+:toc: left
+
+== Adding users
+
+Now we have authorized access to the System API, we can start to add users.
+
+We can view the list of users with the following:
+
+----
+curl http://localhost:4444/_site/users
+----
+
+To create a user we need to craft a JSON object that contains a username, but can contain any other data as necessary. See <<ex-create-a-user>> for an example.
+
+[[ex-create-a-user]]
+.Creating a user
+****
+Using *jo* we can create the necessary JSON for a user with username `alice`:
+
+----
+jo username=alice fullname="Alice Carroll"
+----
+
+Now we can create a user by piping this JSON into *curl*:
+
+----
+jo username=alice fullname="Alice Carroll" password=$(gum input --password) | curl --json @- http://localhost:4444/_site/users
+----
+
+We can check check this has worked by checking the list of users:
+
+----
+curl http://localhost:4444/_site/users
+----
+
+
+****
+
+[IMPORTANT]
+--
+Create a few users as shown in <<ex-create-a-user>>.
+--
+
+== Adding users
+
+Add a password for the user
+
+----
+(coming soon)
+----
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

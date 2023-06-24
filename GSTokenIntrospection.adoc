@@ -1,0 +1,21 @@
+= Token Introspection
+:toc: left
+
+== Installation
+
+Install an introspection endpoint:
+
+----
+sitectl install-group juxt/site/oauth-introspection-endpoint
+----
+
+Check the token again.
+
+----
+site check-token
+----
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

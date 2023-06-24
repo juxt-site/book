@@ -1,0 +1,170 @@
+= Preparation
+:toc: left
+:clj-version: 1.11.1
+:bb-version: 1.1.172
+:gum-version: 0.10.0
+:curl-version: 8.0.0
+:java-version: 17
+:jo-version: 1.9
+
+== Dependencies
+
+Before we get started, let's check some dependencies.
+
+<<gs-dependencies>> shows a table of dependencies that we will need to install before we can get started with Site.
+
+[[gs-dependencies]]
+.Required dependencies
+[options=header,unbreakable,cols="3,3,5m"]
+|===
+|Name|Command|Minimum version
+|java|java|{java-version}
+|Clojure|clj|{clj-version}
+|Babashka|bb|{bb-version}
+|gum|gum|{gum-version}
+|curl|curl|{curl-version}
+|jo|jo|{jo-version}
+|===
+
+=== Java
+
+Site runs on the JVM, and requires a modern installation.
+
+----
+java -version
+openjdk 20.0.1 2023-04-18
+OpenJDK Runtime Environment (build 20.0.1+9)
+OpenJDK 64-Bit Server VM (build 20.0.1+9, mixed mode, sharing)
+----
+
+=== Clojure
+
+Site is written in Clojure, and requires Clojure to be installed on your machine.
+Ensure you have https://clojure.org/[Clojure] version v{clj-version} or later installed:
+
+----
+clj --version
+Clojure CLI version 1.11.1.1273
+----
+
+=== Babashka
+
+Site uses Babashka for some tools and scripting.
+Ensure you have https://github.com/babashka/babashka[Babashka] version v{bb-version} or later installed:
+
+----
+bb --version
+babashka v1.1.172
+----
+
+=== gum
+
+Some of Site's scripts make use of https://github.com/charmbracelet/gum/[*gum*], which gives a nicer command-line experience.
+Ensure you have *gum* installed.
+
+----
+gum --version
+gum version {gum-version} (0f0f8e9)
+----
+
+For example, on Arch Linux you can install *gum* with the following:
+
+----
+pacman -S gum
+----
+
+==== curl
+
+For testing certain operations, we will be using https://curl.se/[*curl*].
+Check you have *curl* on your system
+
+----
+curl --version
+----
+
+==== jo
+
+For creating JSON easily on the command line, we'll be using *jo*.
+Check you have *jo* on your system.
+
+----
+jo -v
+jo {jo-version}
+----
+
+== Cloning the Site source repository
+
+[IMPORTANT]
+--
+Clone Site's repository to your computer, and change the current directory to `site`.
+
+----
+$ git clone https://github.com/juxt-site/site
+$ cd site
+----
+--
+
+== Set SITE_HOME and PATH
+
+Set the SITE_HOME environment variable to the location where you have
+cloned the Site git repo.
+
+[IMPORTANT]
+--
+Add `$SITE_HOME/server/bin` and `$SITE_HOME/client/bin` to your `PATH` environment variable.
+--
+
+For example, with Bash, you would put something like the following in your `.bashrc` file and restart the shell:
+
+----
+export SITE_HOME=$HOME/src/github.com/juxt-site/site
+export PATH=$SITE_HOME/client/bin:$SITE_HOME/server/bin:$PATH
+----
+
+== Configure bash completion
+
+[IMPORTANT]
+--
+If you are using the bash shell, you should append the text in <<bash-completions>> to your `$HOME/.bashrc` file:
+--
+
+.Bash configuration to enable Site command-line completions
+[[bash-completions]]
+--
+[source]
+----
+_site_tasks() {
+    COMPREPLY=( $(compgen -W "$(site tasks |tail -n +3 |cut -f1 -d ' ')" -- ${COMP_WORD
+S[COMP_CWORD]}) );
+}
+complete -F _site_tasks site
+
+_sitectl_tasks() {
+    COMPREPLY=( $(compgen -W "$(sitectl tasks |tail -n +3 |cut -f1 -d ' ')" -- ${COMP_W
+ORDS[COMP_CWORD]}) );
+}
+# autocomplete filenames as well, due to 'site apply'
+complete -f -F _sitectl_tasks sitectl
+----
+--
+
+== Configure the Site instance
+
+The Site instance requires a configuration file, which specifies important settings such as the base-uri used for new resources, port numbers and the database configuration.
+
+[IMPORTANT]
+--
+Copy `server/etc/config.edn` to `$HOME/.config/site/config.edn`:
+
+----
+mkdir -p $HOME/.config/site
+cp $SITE_HOME/server/etc/config.edn $HOME/.config/site/config.edn
+----
+--
+
+Review the config at `$HOME/.config/site/config.edn` and make any appropriate modifications.
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

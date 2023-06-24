@@ -1,0 +1,172 @@
+= Bootstrapping the System API
+:toc: left
+
+In this chapter we will add just enough resources to Site's database to build up a working 'System API'.
+
+Once we have built this API we can continue to configure Site remotely by using an API client.
+
+== Using `sitectl`
+
+In this section we introduce `sitectl`.
+This is a command line tool that connects to a running Site instance on same host, via a locally-bound REPL running on port 50505.
+It is used only for administrative operations.
+
+Clear out any existing resources from Site.
+This isn't strictly necessary if you haven't installed Site before, but is worth knowing in case you want to start over.
+
+----
+sitectl reset
+----
+
+Next we must bootstrap Site by deploying a minimal set of resources.
+
+[IMPORTANT]
+--
+Bootstrap your Site instance:
+
+----
+sitectl install-group juxt/site/bootstrap
+----
+--
+
+When prompted, accept the offer to install the resources.
+The resources that are installed are the minimal set that will allow us to create operations and grant permissions to use them.
+
+****
+Whenever you like, you can inspect your Site instance's resources with `ls`:
+
+----
+sitectl ls
+----
+
+This will bring up a list of all the resources in the database allowing you to narrow your search.
+
+You can also narrow your search by providing a filter on the command line:
+
+----
+sitectl ls operations
+----
+****
+
+== Adding API support
+
+We must now add the operations needed to build an API:
+
+[IMPORTANT]
+--
+Install the `juxt/site/api-operations` group:
+
+----
+sitectl install-group juxt/site/api-operations
+----
+--
+
+== Install the System API
+
+Site can be configured remotely, via its own API, which we need to install now.
+
+[IMPORTANT]
+--
+Install the Site System API
+
+----
+sitectl install-group juxt/site/system-api
+----
+--
+
+== Configure Site to issue bearer tokens
+
+We must now add an endpoint that an API client can call to be authorized to call our System API.
+This endpoint is called a 'token endpoint' because it issues access tokens to authorized clients to use in API requests.
+
+[IMPORTANT]
+--
+Install a token endpoint for issuing bearer tokens:
+
+----
+sitectl install-group juxt/site/oauth-token-endpoint
+----
+--
+
+By default, access tokens are JSON Web Tokens (JWTs).
+These are cryptographically signed.
+We must install a keypair that Site can use to sign the JWTs that it will issue.
+
+[IMPORTANT]
+--
+Install a new keypair:
+
+----
+sitectl new-keypair
+----
+--
+
+****
+You can also use `sitectl new-keypair` whenever you want to rotate the keypair.
+Existing keypairs will be retained in the database in order to verify access tokens that have been signed in the past.
+****
+
+== Register applications
+
+=== site-cli
+
+Site includes with a command line script, `site`, that accesses the token endpoint and some of the endpoints of the System API.
+Before we can use it, we must register it with Site with the `client_id` set to `site-cli`.
+
+[IMPORTANT]
+--
+Register the command-line application:
+
+----
+sitectl install-group juxt/site/system-client --client-id site-cli
+----
+--
+
+****
+The `site` command-line tool is a https://github.com/babashka/babashka[Babashka] script.
+****
+
+=== InSite
+
+There is also a web application, called *InSite*, which can be used in preference to the command line tool.
+
+[IMPORTANT]
+--
+Register the *InSite* application:
+
+----
+sitectl install-group juxt/site/system-client --client-id insite
+----
+--
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:
+
+== Extract the client secret of an API client
+
+Each of the applications we have registered will have a unique _client secret_.
+Until we have added user accounts, we will have to use this client secret in order to authorize the application to call the System API.
+Therefore, we must extract the client secret for the application we want to use.
+
+For example, if we want to use the *InSite* web application, we must give it its unique `client_secret`:
+
+----
+sitectl client-secret insite
+----
+
+This will return a special string of characters that we can give to *InSite* when we connect it to our Site instance.
+
+If we give a `--save` option, it will save the `client_secret` to a temporary area known to the site-cli script (usually `$HOME/.cache/site/client-secrets/site-cli`).
+
+[IMPORTANT]
+--
+Extract the client secret for this `site-cli` and save it to a temporary area:
+
+----
+sitectl client-secret --save site-cli
+----
+--
+
+We are now finished with `sitectl` and can continue configuring Site via the System API.

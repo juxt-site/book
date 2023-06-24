@@ -1,0 +1,43 @@
+= Startup
+:toc: left
+
+== Start the Site instance
+
+It is now time to start the Site instance, which runs on a JVM on your local machine.
+
+[IMPORTANT]
+--
+Start the Site instance:
+
+----
+$SITE_HOME/server/bin/site-server
+----
+--
+
+Check the server starts up by looking out for a message on the console similar to the following:
+
+----
+Site by JUXT. Copyright (c) 2020-2023, JUXT LTD.
+2023-05-22 11:02:46.508:INFO::main: Logging initialized @5804ms to org.eclipse.jetty.util.log.StdErrLog
+...
+2023-06-21 12:36:00,180 INFO  juxt.site.main: System started and ready... [ thread=main]
+----
+
+== Check the status of the instance
+
+Check the server is up by calling an endpoint with curl:
+
+----
+curl http://localhost:4444/_site/healthcheck
+----
+
+This should report:
+
+----
+Site OK!
+----
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:
