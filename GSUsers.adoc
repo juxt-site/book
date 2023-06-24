@@ -5,6 +5,10 @@
 
 Now we have authorized access to the System API, we can start to add users.
 
+As we are still 'getting started', we will keep things simple and provide temporary passwords for these users.
+However, Site does support other authentication schemes.
+For example, see <<ch-openid>> if you want to an OpenID Connect provider rather than passwords.
+
 We can view the list of users with the following:
 
 ----
@@ -14,7 +18,7 @@ curl http://localhost:4444/_site/users
 To create a user we need to craft a JSON object that contains a username, but can contain any other data as necessary. See <<ex-create-a-user>> for an example.
 
 [[ex-create-a-user]]
-.Creating a user
+.Creating a user with a password
 ****
 Using *jo* we can create the necessary JSON for a user with username `alice`:
 
@@ -42,9 +46,9 @@ curl http://localhost:4444/_site/users
 Create a few users as shown in <<ex-create-a-user>>.
 --
 
-== Adding users
+== Updating users
 
-Add a password for the user
+Change the password for the user
 
 ----
 (coming soon)
