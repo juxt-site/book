@@ -1,0 +1,14 @@
+= Wrapping Up
+:toc: left
+
+Congratulations.
+You have now set up your own Site instance.
+
+So what's next?
+Here are some next steps you can take from here.
+
+Understand more about access tokens by implementing support for RFC 7662 Token Introspection.
+This is explained in <<ch-token-introspection>>.
+
+You can add an OpenAPI endpoint for the System API and access this via the Swagger UI and other OpenAPI-compatible applications.
+This is explained in <<ch-openapi>>.

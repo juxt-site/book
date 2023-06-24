@@ -56,9 +56,7 @@ include::GSClient.adoc[leveloffset=+1]
 
 include::GSUsers.adoc[leveloffset=+1]
 
-include::GSTokenIntrospection.adoc[leveloffset=+1]
-
-include::GSTSwagger.adoc[leveloffset=+1]
+include::GSConclusion.adoc[leveloffset=+1]
 
 = Foundations
 
@@ -160,6 +158,12 @@ include::GraphQL.adoc[leveloffset=+1]
 This is the forthcoming part on Site deployment.
 
 = Going Further
+
+[[ch-token-introspection]]
+include::GSTokenIntrospection.adoc[leveloffset=+1]
+
+[[ch-openapi]]
+include::GSOpenAPI.adoc[leveloffset=+1]
 
 include::ErrorResources.adoc[leveloffset=+1]
 

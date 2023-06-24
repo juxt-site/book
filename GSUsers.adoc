@@ -32,7 +32,7 @@ Now we can create a user by piping this JSON into *curl*:
 jo username=alice fullname="Alice Carroll" password=$(gum input --password) | curl --json @- http://localhost:4444/_site/users
 ----
 
-We can check check this has worked by checking the list of users:
+We can check this has worked by checking the list of users:
 
 ----
 curl http://localhost:4444/_site/users
