@@ -38,7 +38,7 @@ include::Principles.adoc[leveloffset=+3]
 = Getting Started
 
 Follow this guide to get up-and-running with your very own Site instance, running locally on your machine.
-If you wish to install Site in production, refer to <<ch-installation>>.
+If you wish to install Site in production, refer to <<pt-deployment>>.
 
 [NOTE]
 --
@@ -68,15 +68,13 @@ The chapters in this part of the book will help to build up your knowledge of Si
 
 include::Concepts.adoc[leveloffset=+1]
 
-include::Installation.adoc[leveloffset=+1]
-
 include::BootstrappingSite.adoc[leveloffset=+1]
 
 include::CreatingActions.adoc[leveloffset=+2]
 
 // TODO: Gently move sections from Operations.adoc and Permissions.adoc into chapters here
 
-// TODO: Include a chapter on Flip
+// TODO: Include a chapter on SCI
 
 [[ch-operations]]
 include::Operations.adoc[leveloffset=+1]
@@ -156,12 +154,12 @@ include::OpenAPI.adoc[leveloffset=+1]
 [[ch-graphql]]
 include::GraphQL.adoc[leveloffset=+1]
 
+[[pt-deployment]]
 = Deployment
 
-[[ch-installation]]
-include::Installation.adoc[leveloffset=+1]
+This is the forthcoming part on Site deployment.
 
-= Going further
+= Going Further
 
 include::ErrorResources.adoc[leveloffset=+1]
 

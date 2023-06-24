@@ -302,9 +302,7 @@ So that a program does not access stale data, and thereby compute an inconstent 
 Typically, a program will carry out input validation and transformation.
 If the program completes successfully, the effects it computes are atomically applied to the state of the system.
 
-Site provides a built-in stack-based language called *Flip* for writing these programs.
-
-// A detailed explanation of actions, rules, permissions and the Flip language can be found in <<ch-operations>>.
+Site supports the *Simple Clojure Interpreter* (SCI) for writing these programs.
 
 [[concept-resources]]
 == Resources

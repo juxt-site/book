@@ -111,50 +111,34 @@ A copy of the transaction metadata record is returned as a result of the `do-ope
 |Operations are resources, so this is a URI. Callers of actions use this attribute to reference an operation.
 s|Required
 
-|:juxt.site.alpha/type
+|:juxt.site/type
 |String
 l|"https://meta.juxt.site/pass/operation"
 s|Required
 
-|:juxt.site.alpha/description
+|:juxt.site/description
 |String
 l|Some text describing what the operation is for.
 |Optional
 
-|:juxt.pass.alpha/rules
+|:juxt.site/rules
 |Collection
 |A collection of Datalog rules that determine whether the operation is allowed.
 s|Required
 
-|:juxt.pass.alpha/scope
+|:juxt.site/prepare
+|Program
+|A program that runs on a single node to prepare the input for the transaction function.
+s|Optional
+
+|:juxt.site/transact
+|Program
+|A program that runs on every node with the purpose of computing the effects to apply on the database, HTTP response and elsewhere.
+s|Optional
+
+|:juxt.site/scope
 |String
 |A _String_ representing the OAuth 2.0 scope containing the operation.
 |Optional
 
-|:juxt.flip.alpha/quotation
-|Collection
-|A Flip program that performs the operation.
-s|Required
 |===
-
-== Performing actions with Flip
-
-An operation are performed in a transaction function.
-A transaction function must return one or more transaction operations that will be submitted to the database atomically.
-
-Often, actions are required to validate input and construct documents that must be put into the database.
-
-Flip is a bespoke language that is used in transaction functions which is specially designed for the purpose of producing transaction operations.
-
-Flip is a stack-based https://www.concatenative.org/wiki/view/Front%20Page[concatenative] language, drawing heavily from https://factorcode.org/[Factor] and https://www.nsl.com/k/xy/xy.htm[XY].
-
-.Why a dedicated language?
-****
-The rationale for Flip is that we need a DSL that is constrained so that it is easier to secure.
-Another issue with allowing a general purpose language such as Clojure or JavaScript is that we cannot know whether the program will terminate.
-
-The problem with only allowing extensions to be defmethods is that this implies that we need to allow users to add methods to the code-base, and track versions, etc.
-
-The benefit of an internal language is that its primitives can be established earlier on and compositions can be defined in terms of primitives.
-Compositions can be added to the database rather than the codebase.
-****
