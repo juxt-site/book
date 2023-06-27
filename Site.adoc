@@ -46,17 +46,17 @@ All these instructions are for Arch Linux, please amend accordingly for your own
 Run each command under your user account (i.e. not as root).
 --
 
-include::GSPreparation.adoc[leveloffset=+1]
+include::GettingStarted/Preparation.adoc[leveloffset=+1]
 
-include::GSStartup.adoc[leveloffset=+1]
+include::GettingStarted/Startup.adoc[leveloffset=+1]
 
-include::GSBootstrapping.adoc[leveloffset=+1]
+include::GettingStarted/Bootstrapping.adoc[leveloffset=+1]
 
-include::GSClient.adoc[leveloffset=+1]
+include::GettingStarted/Client.adoc[leveloffset=+1]
 
-include::GSUsers.adoc[leveloffset=+1]
+include::GettingStarted/Users.adoc[leveloffset=+1]
 
-include::GSConclusion.adoc[leveloffset=+1]
+include::GettingStarted/Conclusion.adoc[leveloffset=+1]
 
 = Foundations
 
