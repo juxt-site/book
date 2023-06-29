@@ -1,0 +1,58 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    asciidoctor (2.0.20)
+    asciidoctor-bibtex (0.8.0)
+      asciidoctor (~> 2.0)
+      bibtex-ruby (~> 5.1)
+      citeproc-ruby (~> 1)
+      csl-styles (~> 1)
+      latex-decode (~> 0.2)
+    asciidoctor-diagram (2.2.9)
+      asciidoctor (>= 1.5.7, < 3.x)
+      asciidoctor-diagram-ditaamini (~> 1.0)
+      asciidoctor-diagram-plantuml (~> 1.2021)
+      rexml
+    asciidoctor-diagram-ditaamini (1.0.3)
+    asciidoctor-diagram-plantuml (1.2023.5)
+    asciidoctor-mathematical (0.3.5)
+      asciidoctor (~> 2.0)
+      asciimath (~> 2.0)
+      mathematical (~> 1.6.0)
+    asciimath (2.0.5)
+    bibtex-ruby (5.1.6)
+      latex-decode (~> 0.0)
+    citeproc (1.0.10)
+      namae (~> 1.0)
+    citeproc-ruby (1.1.14)
+      citeproc (~> 1.0, >= 1.0.9)
+      csl (~> 1.6)
+    concurrent-ruby (1.2.2)
+    csl (1.6.0)
+      namae (~> 1.0)
+      rexml
+    csl-styles (1.0.1.11)
+      csl (~> 1.0)
+    i18n (1.14.1)
+      concurrent-ruby (~> 1.0)
+    latex-decode (0.4.0)
+    mathematical (1.6.14)
+      ruby-enum (~> 0.4)
+    namae (1.1.1)
+    rexml (3.2.5)
+    ruby-enum (0.9.0)
+      i18n
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  asciidoctor
+  asciidoctor-bibtex
+  asciidoctor-diagram
+  asciidoctor-diagram-plantuml
+  asciidoctor-mathematical
+  mathematical
+
+BUNDLED WITH
+   2.4.13
