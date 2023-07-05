@@ -1,0 +1,31 @@
+= Site tool configuration
+:toc: left
+
+Before we can run the `site` tool, we must ensure that it is correctly configured.
+
+[WARNING]
+--
+The `site` command line tool is configured separately from a Site instance.
+--
+
+[[site-cli-config-format-options]]
+.Configuration file options
+[options=header,unbreakable,cols="3m,3"]
+|===
+|File|Format
+|site-cli.yaml|YAML
+|site-cli.json|JSON
+|site-cli.edn|EDN
+|===
+
+<<site-cli-edn-config>> shows an example configuration file in EDN format.
+The advantage of EDN is that it is possible to use https://github.com/juxt/aero[Aero] _tag literals_ to access environment variables, reduce duplication and alter configuration depending on a 'profile' setting.
+
+[[site-cli-edn-config]]
+.A configuration in EDN format
+====
+[source,clojure]
+----
+include::site-cli.edn[]
+----
+====

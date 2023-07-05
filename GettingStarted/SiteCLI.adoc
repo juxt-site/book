@@ -1,0 +1,10 @@
+= The Site command line tool
+:toc: left
+
+In this chapter we introduce `site`, a command line tool that allows us to bootstrap, administer and configure a Site instance.
+
+For example, you can use `site ping` to check whether a Site instance is up.
+
+----
+site ping
+----

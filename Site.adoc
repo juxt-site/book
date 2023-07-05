@@ -48,7 +48,11 @@ Run each command under your user account (i.e. not as root).
 
 include::GettingStarted/Preparation.adoc[leveloffset=+1]
 
+include::GettingStarted/Configuration.adoc[leveloffset=+1]
+
 include::GettingStarted/Startup.adoc[leveloffset=+1]
+
+include::GettingStarted/SiteCLI.adoc[leveloffset=+1]
 
 include::GettingStarted/Bootstrapping.adoc[leveloffset=+1]
 
@@ -186,6 +190,10 @@ include::Glossary.adoc[]
 [[ch-domain-configuration]]
 [appendix]
 include::DomainConfiguration.adoc[leveloffset=+1]
+
+[[ch-site-cli-configuration]]
+[appendix]
+include::SiteToolConfiguration.adoc[leveloffset=+1]
 
 [bibliography]
 = References

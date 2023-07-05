@@ -5,38 +5,39 @@ In this chapter we will add just enough resources to Site's database to build up
 
 Once we have built this API we can continue to configure Site remotely by using an API client.
 
-== Using `sitectl`
-
-In this section we introduce `sitectl`.
-This is a command line tool that connects to a running Site instance on same host, via a locally-bound REPL running on port 50505.
-It is used only for administrative operations.
+== Resetting the system
 
 Clear out any existing resources from Site.
 This isn't strictly necessary if you haven't installed Site before, but is worth knowing in case you want to start over.
 
 ----
-sitectl reset
+site reset
 ----
 
+== Bootstrapping
+
 Next we must bootstrap Site by deploying a minimal set of resources.
+We do this by calling `site bundle` to prepare a list of resources to install and sending this, via **curl**, to our Site instance.
 
 [IMPORTANT]
 --
 Bootstrap your Site instance:
 
 ----
-sitectl install-group juxt/site/bootstrap
+site bundle juxt/site/bootstrap \
+| curl -X POST -H content-type:application/edn \
+-d @- \
+http://localhost:4911/resources
 ----
 --
 
-When prompted, accept the offer to install the resources.
 The resources that are installed are the minimal set that will allow us to create operations and grant permissions to use them.
 
 ****
 Whenever you like, you can inspect your Site instance's resources with `ls`:
 
 ----
-sitectl ls
+site ls
 ----
 
 This will bring up a list of all the resources in the database allowing you to narrow your search.
@@ -44,7 +45,7 @@ This will bring up a list of all the resources in the database allowing you to n
 You can also narrow your search by providing a filter on the command line:
 
 ----
-sitectl ls operations
+site ls operations
 ----
 ****
 

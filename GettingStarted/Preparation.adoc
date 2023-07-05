@@ -148,22 +148,6 @@ complete -f -F _sitectl_tasks sitectl
 ----
 --
 
-== Configure the Site instance
-
-The Site instance requires a configuration file, which specifies important settings such as the base-uri used for new resources, port numbers and the database configuration.
-
-[IMPORTANT]
---
-Copy `server/etc/config.edn` to `$HOME/.config/site/config.edn`:
-
-----
-mkdir -p $HOME/.config/site
-cp $SITE_HOME/server/etc/config.edn $HOME/.config/site/config.edn
-----
---
-
-Review the config at `$HOME/.config/site/config.edn` and make any appropriate modifications.
-
 // Local Variables:
 // mode: outline
 // outline-regexp: "[=]+"

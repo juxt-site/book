@@ -1,0 +1,16 @@
+{"uri-map"
+ {"https://auth.example.org"
+  #profile {:default "http://localhost:4440"}
+
+  "https://data.example.org"
+  #profile {:default "http://localhost:4444"}}
+
+ "installers-home"
+ #profile {:default #join [#env SITE_HOME "/installers"]}
+
+ "client-credentials"
+ {"ask-for-client-secret" true
+  "cache-client-secret" true}
+
+ "curl"
+ {"save-bearer-token-to-default-config-file" true}}
