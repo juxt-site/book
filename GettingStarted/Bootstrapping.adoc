@@ -96,34 +96,34 @@ We must install a keypair that Site can use to sign the JWTs that it will issue.
 Install a new keypair:
 
 ----
-sitectl new-keypair
+site new-keypair | curl -K $SITE_HOME/install.curl
 ----
 --
 
 ****
-You can also use `sitectl new-keypair` whenever you want to rotate the keypair.
+You can also use `site new-keypair` whenever you want to rotate the keypair.
 Existing keypairs will be retained in the database in order to verify access tokens that have been signed in the past.
 ****
 
 == Register applications
 
+Before an application is allowed to access an API of a Resource Server, it must first be registered as a client.
+
 === site-cli
 
-Site includes with a command line script, `site`, that accesses the token endpoint and some of the endpoints of the System API.
-Before we can use it, we must register it with Site with the `client_id` set to `site-cli`.
+The `site` command-line tool can work against the System API remotely.
+In order to do o, we must register it with our Site instance.
+We register it with the `client_id` set to `site-cli`.
 
 [IMPORTANT]
 --
 Register the command-line application:
 
 ----
-sitectl install-group juxt/site/system-client --client-id site-cli
+site bundle juxt/site/system-client --client-id site-cli \
+| curl -K $SITE_HOME/install.curl
 ----
 --
-
-****
-The `site` command-line tool is a https://github.com/babashka/babashka[Babashka] script.
-****
 
 === InSite
 
@@ -134,7 +134,8 @@ There is also a web application, called *InSite*, which can be used in preferenc
 Register the *InSite* application:
 
 ----
-sitectl install-group juxt/site/system-client --client-id insite
+site bundle juxt/site/system-client --client-id insite \
+| curl -K $SITE_HOME/install.curl
 ----
 --
 
@@ -152,7 +153,7 @@ Therefore, we must extract the client secret for the application we want to use.
 For example, if we want to use the *InSite* web application, we must give it its unique `client_secret`:
 
 ----
-sitectl client-secret insite
+site client-secret insite
 ----
 
 This will return a special string of characters that we can give to *InSite* when we connect it to our Site instance.
@@ -164,7 +165,7 @@ If we give a `--save` option, it will save the `client_secret` to a temporary ar
 Extract the client secret for this `site-cli` and save it to a temporary area:
 
 ----
-sitectl client-secret --save site-cli
+site client-secret --save site-cli
 ----
 --
 

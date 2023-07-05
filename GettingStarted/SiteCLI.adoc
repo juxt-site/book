@@ -8,3 +8,7 @@ For example, you can use `site ping` to check whether a Site instance is up.
 ----
 site ping
 ----
+
+****
+The `site` command-line tool is a https://github.com/babashka/babashka[Babashka] script.
+****
