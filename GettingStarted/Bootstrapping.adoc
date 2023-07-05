@@ -24,10 +24,7 @@ We do this by calling `site bundle` to prepare a list of resources to install an
 Bootstrap your Site instance:
 
 ----
-site bundle juxt/site/bootstrap \
-| curl -X POST -H content-type:application/edn \
--d @- \
-http://localhost:4911/resources
+site bundle juxt/site/bootstrap | curl -K $SITE_HOME/install.curl
 ----
 --
 
@@ -51,14 +48,15 @@ site ls operations
 
 == Adding API support
 
-We must now add the operations needed to build an API:
+In Site, resources are created by calling operations.
+We must add the operations needed to build an API:
 
 [IMPORTANT]
 --
 Install the `juxt/site/api-operations` group:
 
 ----
-sitectl install-group juxt/site/api-operations
+site bundle juxt/site/api-operations | curl -K $SITE_HOME/install.curl
 ----
 --
 
@@ -71,7 +69,7 @@ Site can be configured remotely, via its own API, which we need to install now.
 Install the Site System API
 
 ----
-sitectl install-group juxt/site/system-api
+site bundle juxt/site/system-api | curl -K $SITE_HOME/install.curl
 ----
 --
 
@@ -85,7 +83,7 @@ This endpoint is called a 'token endpoint' because it issues access tokens to au
 Install a token endpoint for issuing bearer tokens:
 
 ----
-sitectl install-group juxt/site/oauth-token-endpoint
+site bundle juxt/site/oauth-token-endpoint | curl -K $SITE_HOME/install.curl
 ----
 --
 
