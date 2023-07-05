@@ -1,6 +1,6 @@
 = Site
 Malcolm Sparks <mal@juxt.pro>
-v1.0, 2022-06-21
+v2.0, 2023-07-06
 :doctype: book
 :toc: left
 :toclevels: 2
