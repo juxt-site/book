@@ -138,13 +138,6 @@ _site_tasks() {
 S[COMP_CWORD]}) );
 }
 complete -F _site_tasks site
-
-_sitectl_tasks() {
-    COMPREPLY=( $(compgen -W "$(sitectl tasks |tail -n +3 |cut -f1 -d ' ')" -- ${COMP_W
-ORDS[COMP_CWORD]}) );
-}
-# autocomplete filenames as well, due to 'site apply'
-complete -f -F _sitectl_tasks sitectl
 ----
 --
 

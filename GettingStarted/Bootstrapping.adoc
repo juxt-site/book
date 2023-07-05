@@ -168,5 +168,3 @@ Extract the client secret for this `site-cli` and save it to a temporary area:
 site client-secret --save site-cli
 ----
 --
-
-We are now finished with `sitectl` and can continue configuring Site via the System API.

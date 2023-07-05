@@ -6,7 +6,7 @@
 Install an introspection endpoint:
 
 ----
-sitectl install-group juxt/site/oauth-introspection-endpoint
+site bundle juxt/site/oauth-introspection-endpoint | curl $SITE_HOME/install.curl
 ----
 
 Check the token again.

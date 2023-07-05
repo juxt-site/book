@@ -6,13 +6,14 @@
 Install the OpenAPI support
 
 ----
-sitectl install-group juxt/site/openapi
+site bundle juxt/site/openapi | curl $SITE_HOME/install.curl
 ----
 
 Register the swagger-ui app
 
 ----
-sitectl register-application swagger-ui
+site bundle juxt/site/system-client --client-id swagger-ui \
+| curl -K $SITE_HOME/install.curl
 ----
 
 Test that the System API has been installed by opening a browser at https://petstore.swagger.io/?url=http://localhost:4444/_site/openapi.json
