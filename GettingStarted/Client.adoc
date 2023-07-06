@@ -1,11 +1,14 @@
-= Using the site command-line tool
+= Remotely configuring Site via the System API
 :toc: left
 
-In this chapter, we'll use the *site* tool to called the System API of the Site instance we've started.
+In this chapter, we'll use the *site* tool as an _OAuth2 client_ to call the System API of our Site instance.
+
+We must have first registered `site` as a client with the Site instance, which we did in <<site-cli-registration>>.
 
 == Acquiring a bearer token
 
-Before the *site* tool can access our Site instance's System API, it needs to acquire a bearer token.
+Before the *site* tool can access the System API, it needs to acquire a bearer token.
+We can do this with `site request-token`, which will make a request to the token endpoint we created in <<bootstrap-token-endpoint>>.
 From the configuration we established, the token is saved to `$HOME/.curlrc`.
 
 [IMPORTANT]
@@ -13,9 +16,11 @@ From the configuration we established, the token is saved to `$HOME/.curlrc`.
 Acquire and store a bearer token:
 
 ----
-site request-token
+site request-token --client-id site-cli
 ----
 --
+
+NOTE: The `client-id` parameter defaults to `site-cli`, so you can omit this if you like.
 
 This should output something similar to the following:
 
@@ -25,7 +30,14 @@ Bearer token saved to $HOME/.curlrc
 Access token expires in 86400 seconds
 ----
 
-You can display the token with the following:
+By default, the bearer token is saved into the `$HOME/.curlrc` file which *curl* reads every time you use it.
+This means that, as a significant convenience, we can disregard the need to add the bearer token every time we use curl.
+The simplifies the instructions in the rest of this guide, but remember that many of the usages of curl only work because we have acquired this bearer token and saved it to `$HOME/.curlrc`.
+If the token expires, some of the examples later on will fail.
+
+== Checking the token
+
+You can check the token with the following:
 
 ----
 site check-token

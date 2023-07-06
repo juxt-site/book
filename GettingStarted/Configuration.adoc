@@ -11,11 +11,12 @@ If you are wanting to serve an API over a network, refer to <<ch-domain-configur
 
 [IMPORTANT]
 --
-Copy `$SITE_HOME/server/etc/config/local-development.edn` to `$HOME/.config/site/config.edn`:
+Copy over a working configuration file:
 
 ----
-mkdir -p $HOME/.config/site
-cp $SITE_HOME/server/etc/config/local-development.edn $HOME/.config/site/config.edn
+mkdir -p $HOME/.config/site; \
+cp $SITE_HOME/server/etc/config/local-development.edn \
+$HOME/.config/site/config.edn
 ----
 --
 

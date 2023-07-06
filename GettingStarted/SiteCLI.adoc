@@ -1,4 +1,4 @@
-= The Site command line tool
+= `site`: Site's command line tool
 :toc: left
 
 In this chapter we introduce `site`, a command line tool that allows us to bootstrap, administer and configure a Site instance.
@@ -12,3 +12,9 @@ site ping
 ****
 The `site` command-line tool is a https://github.com/babashka/babashka[Babashka] script.
 ****
+
+== Configuring `site`
+
+For the remainder of this getting started guide, we don't have to worry about the configuration file that `site` uses.
+
+However, if you ever _do_ need to change some of its defaults, refer to <<ch-site-cli-configuration>>.

@@ -73,6 +73,7 @@ site bundle juxt/site/system-api | curl -K $SITE_HOME/install.curl
 ----
 --
 
+[[bootstrap-token-endpoint]]
 == Configure Site to issue bearer tokens
 
 We must now add an endpoint that an API client can call to be authorized to call our System API.
@@ -109,15 +110,21 @@ Existing keypairs will be retained in the database in order to verify access tok
 
 Before an application is allowed to access an API of a Resource Server, it must first be registered as a client.
 
+[[site-cli-registration]]
 === site-cli
 
-The `site` command-line tool can work against the System API remotely.
-In order to do o, we must register it with our Site instance.
+The `site` command-line tool can call the System API, remotely and securely, as an OAuth2 _client_.
+However, to make secure API calls, the tool must be registered as a client with our Site instance.
+In order to do so, we must register it with our Site instance.
 We register it with the `client_id` set to `site-cli`.
+
+Also, there are certain API endpoints of the System API that require certain permissions.
+To provide the `site` tool with these permissions, we also assign a particular role to the application.
+Fortunately, we can do this by installing the `juxt/site/system-client` bundle, giving `site-cli` as a parameter.
 
 [IMPORTANT]
 --
-Register the command-line application:
+Register `site` as a client:
 
 ----
 site bundle juxt/site/system-client --client-id site-cli \
