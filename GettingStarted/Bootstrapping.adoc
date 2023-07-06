@@ -31,7 +31,23 @@ site bundle juxt/site/bootstrap | curl -K $SITE_HOME/install.curl
 The resources that are installed are the minimal set that will allow us to create operations and grant permissions to use them.
 
 ****
-Whenever you like, you can inspect your Site instance's resources with `ls`:
+The `install.curl` file merely contains pre-configured curl arguments which are inconvenient to remember.
+
+[source]
+----
+url = http://localhost:4911/resources
+request = POST
+header = content-type:application/edn
+data = @-
+----
+
+These arguments post the output of `site bundle` to Site's local admin server, usually on port 4911, which installs the resources for us.
+This is necessary because we don't yet have a secure System API to call instead.
+****
+
+[TIP]
+--
+Whenever you like, you can inspect your Site instance's resources with `site ls`:
 
 ----
 site ls
@@ -44,7 +60,11 @@ You can also narrow your search by providing a filter on the command line:
 ----
 site ls operations
 ----
-****
+
+Once you have selected the resource, a representation of the resource's configuration and state will be output on the console.
+
+Of course, this command is only available via the local admin server and not available remotely.
+--
 
 == Adding API support
 

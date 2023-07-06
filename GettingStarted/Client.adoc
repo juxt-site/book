@@ -20,7 +20,7 @@ site request-token --client-id site-cli
 ----
 --
 
-NOTE: The `client-id` parameter defaults to `site-cli`, so you can omit this if you like.
+TIP: The `client-id` parameter defaults to `site-cli`, so you can omit this if you like.
 
 This should output something similar to the following:
 
