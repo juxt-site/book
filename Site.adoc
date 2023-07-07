@@ -58,8 +58,6 @@ include::GettingStarted/Bootstrapping.adoc[leveloffset=+1]
 
 include::GettingStarted/Client.adoc[leveloffset=+1]
 
-include::GettingStarted/Users.adoc[leveloffset=+1]
-
 include::GettingStarted/Conclusion.adoc[leveloffset=+1]
 
 = Foundations
