@@ -46,19 +46,7 @@ All these instructions are for Arch Linux, please amend accordingly for your own
 Run each command under your user account (i.e. not as root).
 --
 
-include::GettingStarted/Preparation.adoc[leveloffset=+1]
-
-include::GettingStarted/Configuration.adoc[leveloffset=+1]
-
-include::GettingStarted/Startup.adoc[leveloffset=+1]
-
-include::GettingStarted/SiteCLI.adoc[leveloffset=+1]
-
-include::GettingStarted/Bootstrapping.adoc[leveloffset=+1]
-
-include::GettingStarted/Client.adoc[leveloffset=+1]
-
-include::GettingStarted/Conclusion.adoc[leveloffset=+1]
+include::GettingStarted/index.adoc[]
 
 = Foundations
 
