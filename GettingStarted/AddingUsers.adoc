@@ -1,9 +1,7 @@
-= Remotely configuring Site via the System API
+= Adding a user account
 :toc: left
 
-In this chapter, we'll use the *site* tool as an _OAuth2 client_ to call the System API of our Site instance.
-
-We must have first registered `site` as a client with the Site instance, which we did in <<site-cli-registration>>.
+In this chapter, we'll use the *site* tool to create a user account.
 
 Ideally, we want to authenticate ourselves as a valid user so that Site can create a log of the individuals that requested each operation.
 
@@ -16,6 +14,8 @@ Therefore, we will take the following steps:
 . Acquire an _access token_ using our client secret (<<acquire-site-bearer-token-client-credentials>>)
 . Use this access token to create a new user, with a password
 . Acquire a new access token, this time authenticating using the password
+
+WARNING: We must have first registered `site` as a client with the Site instance, which we did in <<site-cli-registration>>.
 
 [[acquire-site-bearer-token-client-credentials]]
 == Acquiring a bearer token using our client secret
@@ -92,13 +92,26 @@ This should output the following:
 [{"fullname":"Alice Carroll","xt/id":"http://localhost:4444/_site/users/alice"}]
 ----
 
-== Acquiring a bearer token using our password
+== Acquiring a bearer token using our user's password
 
+Now that we have created a user, we can use it to acquire a new bearer token.
 
 ----
 site request-token --client-id site-cli --grant-type password \
 --username alice --password password=$(gum input --password)
 ----
+
+[IMPORTANT]
+--
+Request a new access token using the username and password for the user you have just created.
+--
+
+We'll use this new bearer token to continue configuring our Site instance.
+
+Now that we're properly logged in as a known user, we can optionally disable the `client_credentials` grant type for the `site-cli` client.
+This will mean that it can no longer be used.
+
+NOTE: TODO
 
 // Local Variables:
 // mode: outline

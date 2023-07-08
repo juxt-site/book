@@ -8,6 +8,6 @@ include::SiteCLI.adoc[leveloffset=+1]
 
 include::Bootstrapping.adoc[leveloffset=+1]
 
-include::Client.adoc[leveloffset=+1]
+include::AddingUsers.adoc[leveloffset=+1]
 
 include::Conclusion.adoc[leveloffset=+1]
