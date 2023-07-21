@@ -14,18 +14,19 @@ Before we get started, let's check some dependencies.
 <<gs-dependencies>> shows a table of dependencies that we will need to install before we can get started with Site.
 
 [[gs-dependencies]]
-.Required dependencies
+.Required dependencies -- *bold* denotes a required dependency
 [options=header,unbreakable,cols="3,3,5m"]
 |===
 |Name|Command|Minimum version
-|java|java|{java-version}
-|Clojure|clj|{clj-version}
-|Babashka|bb|{bb-version}
-|gum|gum|{gum-version}
-|curl|curl|{curl-version}
-|jo|jo|{jo-version}
+|<<install-java,*java*>>|java|{java-version}
+|<<install-clojure,*Clojure*>>|clj|{clj-version}
+|<<install-babashka,*Babashka*>>|bb|{bb-version}
+|<<install-gum,*gum*>>|gum|{gum-version}
+|<<install-curl,curl>>|curl|{curl-version}
+|<<install-jo,jo>>|jo|{jo-version}
 |===
 
+[[install-java]]
 === Java
 
 Site runs on the JVM, and requires a modern installation.
@@ -37,6 +38,7 @@ OpenJDK Runtime Environment (build 20.0.1+9)
 OpenJDK 64-Bit Server VM (build 20.0.1+9, mixed mode, sharing)
 ----
 
+[[install-clojure]]
 === Clojure
 
 Site is written in Clojure, and requires Clojure to be installed on your machine.
@@ -47,6 +49,7 @@ clj --version
 Clojure CLI version 1.11.1.1273
 ----
 
+[[install-babashka]]
 === Babashka
 
 Site uses Babashka for some tools and scripting.
@@ -57,6 +60,7 @@ bb --version
 babashka v1.1.172
 ----
 
+[[install-gum]]
 === gum
 
 Some of Site's scripts make use of https://github.com/charmbracelet/gum/[*gum*], which gives a nicer command-line experience.
@@ -73,6 +77,7 @@ For example, on Arch Linux you can install *gum* with the following:
 pacman -S gum
 ----
 
+[[install-curl]]
 ==== curl
 
 For testing certain operations, we will be using https://curl.se/[*curl*].
@@ -82,6 +87,7 @@ Check you have *curl* on your system
 curl --version
 ----
 
+[[install-jo]]
 ==== jo
 
 For creating JSON easily on the command line, we'll be using *jo*.
@@ -111,14 +117,14 @@ cloned the Site git repo.
 
 [IMPORTANT]
 --
-Add `$SITE_HOME/server/bin` and `$SITE_HOME/client/bin` to your `PATH` environment variable.
+Add `$SITE_HOME/bin` and `$SITE_HOME/server/bin` to your `PATH` environment variable.
 --
 
 For example, with Bash, you would put something like the following in your `.bashrc` file and restart the shell:
 
 ----
 export SITE_HOME=$HOME/src/github.com/juxt-site/site
-export PATH=$SITE_HOME/client/bin:$SITE_HOME/server/bin:$PATH
+export PATH=$SITE_HOME/bin:$SITE_HOME/server/bin:$PATH
 ----
 
 == Configure bash completion
