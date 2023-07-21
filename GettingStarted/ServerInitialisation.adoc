@@ -1,0 +1,87 @@
+= Server Initialisation
+:toc: left
+
+In this chapter we will add just enough resources to a Site instance's database to build up a working 'System API'.
+
+Once we have built this API we can continue to configure Site remotely by using an API client.
+
+== Introducing `site`
+
+`site` is a command line tool that allows us to initialise, configure and administer a Site instance.
+
+For the remainder of this 'getting started' guide, we'll work with its default configuration.
+
+However, if you ever _do_ need to change some of its defaults, refer to <<ch-site-cli-configuration>>.
+
+== Checking the Server
+
+You can use `site` to to check whether a Site instance is up.
+
+----
+site ping
+----
+
+If your Site instance is up and running, this should respond with:
+
+----
+Checking http://localhost:4444/_site/healthcheck
+Response: Site OK!
+----
+
+== Resetting the Server
+
+When configuring a Site instance, all the resources are stored in the database.
+
+If you ever need to start over, you can delete all resources from a Site instance.
+
+----
+site reset
+----
+
+[WARNING]
+--
+Be careful, this is a dangerous command!
+--
+
+[[initialisation]]
+== Initialisation
+
+Next we must initialise Site by deploying a minimal set of resources.
+
+We do this by calling `site init`.
+
+[IMPORTANT]
+--
+Initialise your Site instance:
+
+----
+site init
+----
+--
+
+The initialization process registers some clients with the Site instance, displaying a _client secret_ for each.
+
+== What next?
+
+We are now at a fork in the road, where it is up to you, dear reader, to make a decision.
+
+[source]
+----
+You should now continue to configure your Site instance,
+using one of the following methods:
+
+A. Proceed to https://insite.juxt.site?client-secret=246194743141bdd8f74c613c3c8f4f5169450a2b
+ or
+B. Continue with this site tool, acquiring an access token with:
+site request-token --client-secret 0d0cfdd61ff09bae7a7523144a7439a3046d6703
+----
+
+If you wish to proceed with a more visual and intuitive configuration experience, we recommend our *InSite* web application.
+Open a browser at the web link displayed in the output of `site init` and proceed to <<configuration-with-insite>>.
+
+If you prefer to continue with the command-line experience offered by the `site` tool, then copy the command displayed in the output of `site init` and proceed to <<configuration-with-site>>.
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

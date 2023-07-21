@@ -1,13 +1,15 @@
 include::Preparation.adoc[leveloffset=+1]
 
-include::Configuration.adoc[leveloffset=+1]
+include::ServerConfiguration.adoc[leveloffset=+1]
 
-include::Startup.adoc[leveloffset=+1]
+include::ServerStartup.adoc[leveloffset=+1]
 
-include::SiteCLI.adoc[leveloffset=+1]
+include::ServerInitialisation.adoc[leveloffset=+1]
 
-include::Bootstrapping.adoc[leveloffset=+1]
+[[configuration-with-insite]]
+include::ConfigurationWithInSite.adoc[leveloffset=+1]
 
-include::AddingUsers.adoc[leveloffset=+1]
+[[configuration-with-site]]
+include::ConfigurationWithCommandLine.adoc[leveloffset=+1]
 
 include::Conclusion.adoc[leveloffset=+1]

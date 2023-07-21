@@ -1,49 +1,13 @@
-= Bootstrapping the System API
+= Configuration with `site`
 :toc: left
 
-In this chapter we will add just enough resources to Site's database to build up a working 'System API'.
+Before you begin this chapter, make sure you have a record of the _client secret_ you were given in <<initialisation>>.
 
-Once we have built this API we can continue to configure Site remotely by using an API client.
+==
 
-== Resetting the system
 
-Clear out any existing resources from Site.
-This isn't strictly necessary if you haven't installed Site before, but is worth knowing in case you want to start over.
 
-----
-site reset
-----
-
-== Bootstrapping
-
-Next we must bootstrap Site by deploying a minimal set of resources.
-We do this by calling `site bundle` to prepare a list of resources to install and sending this, via **curl**, to our Site instance.
-
-[IMPORTANT]
---
-Bootstrap your Site instance:
-
-----
-site bundle juxt/site/bootstrap | curl -K $SITE_HOME/install.curl
-----
---
-
-The resources that are installed are the minimal set that will allow us to create operations and grant permissions to use them.
-
-****
-The `install.curl` file merely contains pre-configured curl arguments which are inconvenient to remember.
-
-[source]
-----
-url = http://localhost:4911/resources
-request = POST
-header = content-type:application/edn
-data = @-
-----
-
-These arguments post the output of `site bundle` to Site's local admin server, usually on port 4911, which installs the resources for us.
-This is necessary because we don't yet have a secure System API to call instead.
-****
+== Listing resources
 
 [TIP]
 --
@@ -166,11 +130,6 @@ site bundle juxt/site/system-client --client-id insite \
 ----
 --
 
-// Local Variables:
-// mode: outline
-// outline-regexp: "[=]+"
-// End:
-
 == Extract the client secret of an API client
 
 Each of the applications we have registered will have a unique _client secret_.
@@ -195,3 +154,120 @@ Extract the client secret for this `site-cli` and save it to a temporary area:
 site client-secret --save site-cli
 ----
 --
+
+In this chapter, we'll use the *site* tool to create a user account.
+
+Ideally, we want to authenticate ourselves as a valid user so that Site can create a log of the individuals that requested each operation.
+
+We don't yet have any users registered with our Site instance.
+We can only create users if we can present an access token with the request.
+However, we do have a client secret for the site tool that is authorized to create users.
+
+Therefore, we will take the following steps:
+
+. Acquire an _access token_ using our client secret (<<acquire-site-bearer-token-client-credentials>>)
+. Use this access token to create a new user, with a password
+. Acquire a new access token, this time authenticating using the password
+
+WARNING: We must have first registered `site` as a client with the Site instance, which we did in <<site-cli-registration>>.
+
+[[acquire-site-bearer-token-client-credentials]]
+== Acquiring a bearer token using our client secret
+
+We can acquire an access token by making a request to the token endpoint we created in <<bootstrap-token-endpoint>>.
+
+[IMPORTANT]
+--
+Acquire and store a bearer token:
+
+----
+site request-token --client-id site-cli --grant-type client_credentials
+----
+--
+
+TIP: The `client-id` parameter defaults to `site-cli`, so you can omit this if you like.
+
+This should output something similar to the following:
+
+----
+Reading client-secret from $HOME/.cache/site/default/client-secrets/site-cli
+Bearer token saved to $HOME/.curlrc
+Access token expires in 86400 seconds
+----
+
+By default, the access token is saved into the `$HOME/.curlrc` file which *curl* reads every time you use it.
+This means that, as a significant convenience, we can disregard the need to add the bearer token every time we use curl.
+The simplifies the instructions in the rest of this guide, but remember that many of the usages of curl only work because we have acquired this bearer token and saved it to `$HOME/.curlrc`.
+If the token expires, some of the examples later on will fail.
+
+[TIP]
+--
+At any time, you can check the current access token with the following:
+
+----
+site check-token
+----
+
+This should return a JSON object containing a property for `bearer-token`.
+--
+
+== Create a user
+
+Now we have authorized access to the System API, we can add a user (or set of users).
+
+To create a user we need to craft a JSON object that contains a username, but can contain any other data as necessary.  See <<ex-create-a-user>> for an example.
+
+[[ex-create-a-user]]
+.Creating a user with a password
+****
+Using *jo* we can create the necessary JSON for a user with username `alice`.
+We can then pipe this JSON into curl to create the user.
+
+----
+jo username=alice fullname="Alice Carroll" password=$(gum input --password) \
+| curl --json @- http://localhost:4444/_site/users
+----
+****
+
+[IMPORTANT]
+--
+Create a user to represent yourself as shown in <<ex-create-a-user>>.
+--
+
+If successful, we should be able to view the user by querying for the full list of users:
+
+----
+curl http://localhost:4444/_site/users
+----
+
+This should output the following:
+
+----
+[{"fullname":"Alice Carroll","xt/id":"http://localhost:4444/_site/users/alice"}]
+----
+
+== Acquiring a bearer token using our user's password
+
+Now that we have created a user, we can use it to acquire a new bearer token.
+
+----
+site request-token --client-id site-cli --grant-type password \
+--username alice --password password=$(gum input --password)
+----
+
+[IMPORTANT]
+--
+Request a new access token using the username and password for the user you have just created.
+--
+
+We'll use this new bearer token to continue configuring our Site instance.
+
+Now that we're properly logged in as a known user, we can optionally disable the `client_credentials` grant type for the `site-cli` client.
+This will mean that it can no longer be used.
+
+NOTE: TODO
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

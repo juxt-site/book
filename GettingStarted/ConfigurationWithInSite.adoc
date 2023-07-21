@@ -1,0 +1,9 @@
+= Configuration with *InSite*
+:toc: left
+
+Before you begin this chapter, make sure you have a record of the web link you were given in <<initialisation>>.
+
+* Open a browser
+* Navigate to web link (Hint: it will start with `https://insite.juxt.site`)
+
+NOTE: Work in progress

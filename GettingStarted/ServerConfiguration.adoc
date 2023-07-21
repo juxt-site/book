@@ -1,4 +1,4 @@
-= Configuration
+= Server Configuration
 :toc: left
 
 == Configure the Site instance
