@@ -110,33 +110,16 @@ $ cd site
 ----
 --
 
-== Set SITE_HOME and PATH
+== Configure your shell
 
-Set the SITE_HOME environment variable to the location where you have
-cloned the Site git repo.
+We should configure the `SITE_HOME` environment variable to point to the location of the cloned the Site git repo.
 
 The `$SITE_HOME/bin` directory contains the `site` command line tool that we will be using through this guide.
 
 The `$SITE_HOME/server/bin` contains some scripts that are useful when you are running a Site instance on your local machine.
 Since this is what we're going to be doing in this guide, we'll add both directories to our `PATH` environment variable.
 
-[IMPORTANT]
---
-Add `$SITE_HOME/bin` and `$SITE_HOME/server/bin` to your `PATH` environment variable.
---
-
-====
-For example, with Bash, you would put something like the following in your `.bashrc` file and restart the shell:
-
-----
-export SITE_HOME=$HOME/src/github.com/juxt-site/site
-export PATH=$SITE_HOME/bin:$SITE_HOME/server/bin:$PATH
-----
-====
-
-== Configure shell completions
-
-It is very useful to be able to tab-complete `site` commands, so let's configure your shell.
+Also, it is very useful to be able to tab-complete `site` commands, so let's configure your shell.
 
 Here are the instructions for <<zsh,`zsh`>>, <<bash,`bash`>> and <<fish,`fish`>>.
 
@@ -145,10 +128,13 @@ Here are the instructions for <<zsh,`zsh`>>, <<bash,`bash`>> and <<fish,`fish`>>
 
 [IMPORTANT]
 --
-Add this to your .zshrc to get tab-complete feature on ZSH.
+Add this to your .zshrc:
 
 [source]
 ----
+export SITE_HOME=$HOME/src/github.com/juxt-site/site
+export PATH=$SITE_HOME/bin:$SITE_HOME/server/bin:$PATH
+
 _site_tasks() {
     local matches=(`site tasks |tail -n +3 |cut -f1 -d ' '`)
     compadd -a matches
@@ -166,6 +152,9 @@ Add this to your .zshrc to get tab-complete feature on ZSH.
 
 [source]
 ----
+export SITE_HOME=$HOME/src/github.com/juxt-site/site
+export PATH=$SITE_HOME/bin:$SITE_HOME/server/bin:$PATH
+
 _site_tasks() {
     COMPREPLY=( $(compgen -W "$(site tasks |tail -n +3 |cut -f1 -d ' ')" -- ${COMP_WORD
 S[COMP_CWORD]}) );
@@ -176,6 +165,21 @@ complete -F _site_tasks site
 
 [[fish]]
 === fish
+
+[IMPORTANT]
+--
+Ensure your `.config/fish/config.fish` file sets the `SITE_HOME` and `PATH` environment variables appropriately:
+
+[source]
+----
+if status is-interactive
+    # Commands to run in interactive sessions can go here
+    set -gx SITE_HOME $HOME/site
+    fish_add_path $SITE_HOME/bin $SITE_HOME/server/bin
+end
+----
+--
+
 
 [IMPORTANT]
 --
