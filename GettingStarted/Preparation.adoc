@@ -121,53 +121,37 @@ Since this is what we're going to be doing in this guide, we'll add both directo
 
 Also, it is very useful to be able to tab-complete `site` commands, so let's configure your shell.
 
-Here are the instructions for <<zsh,`zsh`>>, <<bash,`bash`>> and <<fish,`fish`>>.
+In the remainder of this section are the instructions for <<zsh,`zsh`>>, <<bash,`bash`>> and <<fish,`fish`>>.
 
 [[zsh]]
 === zsh
 
-[IMPORTANT]
---
-Add this to your .zshrc:
+Add this to your `.zshrc`, changing the value of `SITE_HOME` accordingly:
 
 [source]
 ----
+# Site
 export SITE_HOME=$HOME/src/github.com/juxt-site/site
 export PATH=$SITE_HOME/bin:$SITE_HOME/server/bin:$PATH
-
-_site_tasks() {
-    local matches=(`site tasks |tail -n +3 |cut -f1 -d ' '`)
-    compadd -a matches
-}
-compdef _site_tasks site
+source $SITE_HOME/etc/zsh/zshrc
 ----
---
 
 [[bash]]
 === bash
 
-[IMPORTANT]
---
-Add this to your .zshrc to get tab-complete feature on ZSH.
+Add this to your .zshrc, changing the value of `SITE_HOME` accordingly:
 
 [source]
 ----
+# Site
 export SITE_HOME=$HOME/src/github.com/juxt-site/site
 export PATH=$SITE_HOME/bin:$SITE_HOME/server/bin:$PATH
-
-_site_tasks() {
-    COMPREPLY=( $(compgen -W "$(site tasks |tail -n +3 |cut -f1 -d ' ')" -- ${COMP_WORD
-S[COMP_CWORD]}) );
-}
-complete -F _site_tasks site
+source $SITE_HOME/etc/bash/bashrc
 ----
---
 
 [[fish]]
 === fish
 
-[IMPORTANT]
---
 Ensure your `.config/fish/config.fish` file sets the `SITE_HOME` and `PATH` environment variables appropriately:
 
 [source]
@@ -178,11 +162,7 @@ if status is-interactive
     fish_add_path $SITE_HOME/bin $SITE_HOME/server/bin
 end
 ----
---
 
-
-[IMPORTANT]
---
 Add this to your .config/fish/completions/site.fish to get tab-complete feature on Fish shell.
 
 [source]
@@ -197,7 +177,6 @@ end
 
 complete -c site -a "(__site_complete_tasks)" -d 'tasks'
 ----
---
 
 
 // Local Variables:

@@ -61,9 +61,56 @@ site init
 
 The initialization process registers some clients with the Site instance, displaying a _client secret_ for each.
 
+== Querying resources
+
+NOTE: These commands is only available via the local admin server and not available remotely.
+
+If you are on the same host as a running Site instance, you can list its resources with `site list`:
+
+----
+site list
+----
+
+This will bring up a list of all the resources in the database allowing you to narrow your search.
+
+You can also narrow your search by providing a filter on the command line:
+
+----
+site list operations
+----
+
+A more powerful command is `site find`.
+This works in a similar way to `site list` but will output the current state and configuration of a resource.
+
+----
+site find operations
+----
+
+If the argument to find would return more than one result, you will be given a choice to further narrow the search to the resource you wish to view.
+A representation of the resource's configuration and state will be output on the console.
+
+== Querying client secrets
+
+Often it is necessary to get the client secret for an application that has been registered with a Site instance.
+[source]
+----
+site client-secret insite
+----
+
+If we give a `--save` option, it will save the `client_secret` to a temporary area known to the site-cli script (usually `$HOME/.cache/site/client-secrets/site-cli`).
+
 == What next?
 
-We are now at a fork in the road, where it is up to you, dear reader, to make a decision.
+We are now at a fork in the road, where it is up to you to make a decision.
+
+Run `site status` to output the instructions which contain the up-to-date client secrets.
+
+[source]
+----
+site status
+----
+
+This should output the available choices.
 
 [source]
 ----

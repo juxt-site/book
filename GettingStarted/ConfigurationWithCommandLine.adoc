@@ -3,159 +3,25 @@
 
 Before you begin this chapter, make sure you have a record of the _client secret_ you were given in <<initialisation>>.
 
-==
+== Request a token
 
+Request the token with the command you were given in <<initialisation>>.
 
+In general, this is a call to `site request-token`, providing _client secret_.
+This gives us sufficient access to the system to create an admin user account.
 
-== Listing resources
+== Check the token
 
-[TIP]
---
-Whenever you like, you can inspect your Site instance's resources with `site ls`:
+Any time you have succesfully acquired a token, you can check the token's validity with `site check-token`.
 
+[source]
 ----
-site ls
-----
-
-This will bring up a list of all the resources in the database allowing you to narrow your search.
-
-You can also narrow your search by providing a filter on the command line:
-
-----
-site ls operations
+site check-token
 ----
 
-Once you have selected the resource, a representation of the resource's configuration and state will be output on the console.
+== Register a user
 
-Of course, this command is only available via the local admin server and not available remotely.
---
-
-== Adding API support
-
-In Site, resources are created by calling operations.
-We must add the operations needed to build an API:
-
-[IMPORTANT]
---
-Install the `juxt/site/api-operations` group:
-
-----
-site bundle juxt/site/api-operations | curl -K $SITE_HOME/install.curl
-----
---
-
-== Install the System API
-
-Site can be configured remotely, via its own API, which we need to install now.
-
-[IMPORTANT]
---
-Install the Site System API
-
-----
-site bundle juxt/site/system-api | curl -K $SITE_HOME/install.curl
-----
---
-
-[[bootstrap-token-endpoint]]
-== Configure Site to issue bearer tokens
-
-We must now add an endpoint that an API client can call to be authorized to call our System API.
-This endpoint is called a 'token endpoint' because it issues access tokens to authorized clients to use in API requests.
-
-[IMPORTANT]
---
-Install a token endpoint for issuing bearer tokens:
-
-----
-site bundle juxt/site/oauth-token-endpoint | curl -K $SITE_HOME/install.curl
-----
---
-
-By default, access tokens are JSON Web Tokens (JWTs).
-These are cryptographically signed.
-We must install a keypair that Site can use to sign the JWTs that it will issue.
-
-[IMPORTANT]
---
-Install a new keypair:
-
-----
-site new-keypair | curl -K $SITE_HOME/install.curl
-----
---
-
-****
-You can also use `site new-keypair` whenever you want to rotate the keypair.
-Existing keypairs will be retained in the database in order to verify access tokens that have been signed in the past.
-****
-
-== Register applications
-
-Before an application is allowed to access an API of a Resource Server, it must first be registered as a client.
-
-[[site-cli-registration]]
-=== site-cli
-
-The `site` command-line tool can call the System API, remotely and securely, as an OAuth2 _client_.
-However, to make secure API calls, the tool must be registered as a client with our Site instance.
-In order to do so, we must register it with our Site instance.
-We register it with the `client_id` set to `site-cli`.
-
-Also, there are certain API endpoints of the System API that require certain permissions.
-To provide the `site` tool with these permissions, we also assign a particular role to the application.
-Fortunately, we can do this by installing the `juxt/site/system-client` bundle, giving `site-cli` as a parameter.
-
-[IMPORTANT]
---
-Register `site` as a client:
-
-----
-site bundle juxt/site/system-client --client-id site-cli \
-| curl -K $SITE_HOME/install.curl
-----
---
-
-=== InSite
-
-There is also a web application, called *InSite*, which can be used in preference to the command line tool.
-
-[IMPORTANT]
---
-Register the *InSite* application:
-
-----
-site bundle juxt/site/system-client --client-id insite \
-| curl -K $SITE_HOME/install.curl
-----
---
-
-== Extract the client secret of an API client
-
-Each of the applications we have registered will have a unique _client secret_.
-Until we have added user accounts, we will have to use this client secret in order to authorize the application to call the System API.
-Therefore, we must extract the client secret for the application we want to use.
-
-For example, if we want to use the *InSite* web application, we must give it its unique `client_secret`:
-
-----
-site client-secret insite
-----
-
-This will return a special string of characters that we can give to *InSite* when we connect it to our Site instance.
-
-If we give a `--save` option, it will save the `client_secret` to a temporary area known to the site-cli script (usually `$HOME/.cache/site/client-secrets/site-cli`).
-
-[IMPORTANT]
---
-Extract the client secret for this `site-cli` and save it to a temporary area:
-
-----
-site client-secret --save site-cli
-----
---
-
-In this chapter, we'll use the *site* tool to create a user account.
+In this chapter, we'll use the *site* tool to register a user.
 
 Ideally, we want to authenticate ourselves as a valid user so that Site can create a log of the individuals that requested each operation.
 
