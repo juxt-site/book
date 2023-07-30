@@ -10,90 +10,65 @@ Request the token with the command you were given in <<initialisation>>.
 In general, this is a call to `site request-token`, providing _client secret_.
 This gives us sufficient access to the system to create an admin user account.
 
+[NOTE]
+--
+By default, the access token is saved into the `$HOME/.curlrc` config file.
+This means you can use *curl* to access the Site API if you prefer.
+--
+
 == Check the token
 
 Any time you have succesfully acquired a token, you can check the token's validity with `site check-token`.
+If things aren't working, it's possible you no longer have a token, or it has expired.
 
 [source]
 ----
 site check-token
 ----
 
-== Register a user
+You can also find out the user (or application) that your token with authenticate as.
 
-In this chapter, we'll use the *site* tool to register a user.
+[source]
+----
+site whoami
+----
 
-Ideally, we want to authenticate ourselves as a valid user so that Site can create a log of the individuals that requested each operation.
+The `site whoami` task can be given a `-v` option to show much more information.
+This is particularly useful for debugging:
 
-We don't yet have any users registered with our Site instance.
-We can only create users if we can present an access token with the request.
-However, we do have a client secret for the site tool that is authorized to create users.
+[source]
+----
+site whoami -v
+----
 
-Therefore, we will take the following steps:
-
-. Acquire an _access token_ using our client secret (<<acquire-site-bearer-token-client-credentials>>)
-. Use this access token to create a new user, with a password
-. Acquire a new access token, this time authenticating using the password
-
-WARNING: We must have first registered `site` as a client with the Site instance, which we did in <<site-cli-registration>>.
-
-[[acquire-site-bearer-token-client-credentials]]
-== Acquiring a bearer token using our client secret
-
-We can acquire an access token by making a request to the token endpoint we created in <<bootstrap-token-endpoint>>.
-
-[IMPORTANT]
+[NOTE]
 --
-Acquire and store a bearer token:
-
-----
-site request-token --client-id site-cli --grant-type client_credentials
-----
---
-
-TIP: The `client-id` parameter defaults to `site-cli`, so you can omit this if you like.
-
-This should output something similar to the following:
-
-----
-Reading client-secret from $HOME/.cache/site/default/client-secrets/site-cli
-Bearer token saved to $HOME/.curlrc
-Access token expires in 86400 seconds
-----
-
-By default, the access token is saved into the `$HOME/.curlrc` file which *curl* reads every time you use it.
-This means that, as a significant convenience, we can disregard the need to add the bearer token every time we use curl.
-The simplifies the instructions in the rest of this guide, but remember that many of the usages of curl only work because we have acquired this bearer token and saved it to `$HOME/.curlrc`.
-If the token expires, some of the examples later on will fail.
-
-[TIP]
---
-At any time, you can check the current access token with the following:
-
-----
-site check-token
-----
-
-This should return a JSON object containing a property for `bearer-token`.
+You should notice that your token you received using the client secret has the roles `http://localhost:4444/_site/roles/Bootstrap` and `http://localhost:4444/_site/roles/SystemQuery`.
 --
 
 == Create a user
 
-Now we have authorized access to the System API, we can add a user (or set of users).
+To create a user we need to craft a JSON object that contains a username, but can contain any other data as necessary.
 
-To create a user we need to craft a JSON object that contains a username, but can contain any other data as necessary.  See <<ex-create-a-user>> for an example.
+We can create a user with `site register-user`, as shown in <<ex-create-a-user>>.
 
 [[ex-create-a-user]]
 .Creating a user with a password
-****
-Using *jo* we can create the necessary JSON for a user with username `alice`.
+====
+To create a user with the username `alice`, and a password, we can do the following:
+
+----
+site register-user --username alice --fullname "Alice Carroll" --password $(gum input --password)
+----
+
+Alternatively, if we have *jo* installed we can create the necessary JSON for a user with username `alice`.
 We can then pipe this JSON into curl to create the user.
 
 ----
 jo username=alice fullname="Alice Carroll" password=$(gum input --password) \
 | curl --json @- http://localhost:4444/_site/users
 ----
-****
+====
 
 [IMPORTANT]
 --
@@ -103,22 +78,44 @@ Create a user to represent yourself as shown in <<ex-create-a-user>>.
 If successful, we should be able to view the user by querying for the full list of users:
 
 ----
+site users
+----
+
+Alternatively, we can use *curl*:
+
+----
 curl http://localhost:4444/_site/users
 ----
 
-This should output the following:
+This will output the collection of users:
 
 ----
-[{"fullname":"Alice Carroll","xt/id":"http://localhost:4444/_site/users/alice"}]
+[ {
+  "juxt.site/username" : "alice",
+  "fullname" : "Alice Carroll",
+  "xt/id" : "http://localhost:4444/_site/users/alice"
+} ]
+----
+
+== Assigning users the `Admin` role
+
+We will need to continue to run certain administrative tasks which are only permitted to particular users.
+
+We will need at least one user that has been granted these permissions.
+
+For example, to assign the `Admin` role to `alice`, we would do the following:
+
+[source]
+----
+site assign-user-role --username alice --role Admin
 ----
 
 == Acquiring a bearer token using our user's password
 
-Now that we have created a user, we can use it to acquire a new bearer token.
+Now that we have created a user, assigned to the `Admin` role, we can replace our token with one representing our new user.
 
 ----
-site request-token --client-id site-cli --grant-type password \
---username alice --password password=$(gum input --password)
+site request-token --username alice --password password=$(gum input --password)
 ----
 
 [IMPORTANT]
@@ -128,10 +125,86 @@ Request a new access token using the username and password for the user you have
 
 We'll use this new bearer token to continue configuring our Site instance.
 
-Now that we're properly logged in as a known user, we can optionally disable the `client_credentials` grant type for the `site-cli` client.
-This will mean that it can no longer be used.
+== Bundles
 
-NOTE: TODO
+Resources in Site are created as a result of a user performing operations with arguments.
+Very often, groups of these operations are performed together, as a _bundle_.
+When we _install_ a _bundle_, we request a number of operations be performed with certain arguments.
+
+Bundles are usually stored as a hierarchical tree of files outside of Site, usually in a source-code (version) control system such as *git*.
+
+By default, the `site` tool points at the directory called `installers` under `$SITE_HOME`.
+
+To list the bundles in the tree:
+
+----
+site bundles
+----
+
+To install a bundle, use the `site install-bundle` command.
+
+[IMPORTANT]
+--
+Install the following bundles:
+
+----
+site install-bundle juxt/site/openapi juxt/site/system-api-openapi juxt/site/openapis-api
+----
+
+Install the OAuth2 authorization endpoint, selecting the password login
+
+----
+site install-bundle juxt/site/oauth-authorization-endpoint
+----
+
+We'll also need to install a login form:
+
+----
+site install-bundle juxt/site/login-form
+----
+
+Finally, register the Swagger UI clients:
+
+----
+site install-bundle juxt/site/system-client --client-id swagger-ui
+site install-bundle juxt/site/system-client --client-id remote-swagger-ui
+----
+
+--
+
+== Check the System API with Swagger
+
+[IMPORTANT]
+--
+Browse to https://petstore.swagger.io/?url=http://localhost:4444/_site/openapi.json
+--
+
+Click on Authorize and scroll to the implicit grant-type.
+
+Add `remote-swagger-ui` for the `client-id` and select all the available scopes.
+
+image::GettingStarted/SwaggerAuthorize.png[Authorize,width=80%]
+
+TIP: Try accessing some of the API endpoints by opening some operations and clicking on the 'Try it out' button.
+
+== Install the Petstore demo API
+
+[IMPORTANT]
+--
+[source]
+----
+site install-openapi $SITE_HOME/demo/openapi.json
+200 Successfully installed API: Swagger Petstore - OpenAPI 3.0 (version 1.0.17)
+----
+--
+
+== Check the Petstore API with Swagger
+
+[IMPORTANT]
+--
+Browse to https://petstore.swagger.io/?url=http://localhost:4444/petstore/openapi.json
+--
+
 
 // Local Variables:
 // mode: outline

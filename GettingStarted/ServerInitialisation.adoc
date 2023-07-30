@@ -103,11 +103,11 @@ If we give a `--save` option, it will save the `client_secret` to a temporary ar
 
 We are now at a fork in the road, where it is up to you to make a decision.
 
-Run `site status` to output the instructions which contain the up-to-date client secrets.
+Run `site post-init` to output the instructions which contain the up-to-date client secrets.
 
 [source]
 ----
-site status
+site post-init
 ----
 
 This should output the available choices.
