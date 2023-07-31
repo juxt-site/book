@@ -46,6 +46,7 @@ site whoami -v
 You should notice that your token you received using the client secret has the roles `http://localhost:4444/_site/roles/Bootstrap` and `http://localhost:4444/_site/roles/SystemQuery`.
 --
 
+[[create-a-user]]
 == Create a user
 
 To create a user we need to craft a JSON object that contains a username, but can contain any other data as necessary.
@@ -110,6 +111,11 @@ For example, to assign the `Admin` role to `alice`, we would do the following:
 site assign-user-role --username alice --role Admin
 ----
 
+[IMPORTANT]
+--
+Assign the `Admin` role to the user you created in <<create-a-user>>.
+--
+
 == Acquiring a bearer token using our user's password
 
 Now that we have created a user, assigned to the `Admin` role, we can replace our token with one representing our new user.
@@ -148,10 +154,10 @@ To install a bundle, use the `site install-bundle` command.
 Install the following bundles:
 
 ----
-site install-bundle juxt/site/openapi juxt/site/system-api-openapi juxt/site/openapis-api
+site install-bundle juxt/site/system-api-openapi
 ----
 
-Install the OAuth2 authorization endpoint, selecting the password login
+Install the OAuth2 authorization endpoint, selecting the password login.
 
 ----
 site install-bundle juxt/site/oauth-authorization-endpoint
