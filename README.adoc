@@ -15,10 +15,11 @@ https://www.bibsonomy.org/ is a good resource for finding entries.
 bibtex entries found by adding /bibtex/ to rfc: e.g.
 https://datatracker.ietf.org/doc/rfc7231/bibtex/
 
-
 == Publishing
 
-See https://ukbookpublishing.com/book-publishing-prices/
+* https://ukbookpublishing.com/book-publishing-prices/
+* https://www.tjbooks.co.uk/ (@lkn knows them)
+* https://www.sapc.co.uk/
 
 // Local Variables:
 // mode: outline
