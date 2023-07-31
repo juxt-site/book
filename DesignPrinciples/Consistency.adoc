@@ -1,0 +1,6 @@
+= Consistency
+
+Site ensures that the database state is determined entirely by the application of a sequence of operations.
+Site is the final arbiter of the order of operations.
+This principle ensures that the database state cannot be affected by the timing of operations.
+Each operation is applied to the most current version of the database.

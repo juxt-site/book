@@ -1,0 +1,8 @@
+= Statelessness
+
+Site is a server, accepting requests over HTTP.
+Site does not hold on to any state between individual web requests.
+Site stores all its state in the XTDB database.
+
+This principle ensures that the database state determines the response to any given request.
+The responses to requests are repeatable, if the database state is the same.

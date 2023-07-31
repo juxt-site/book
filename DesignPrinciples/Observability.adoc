@@ -1,0 +1,5 @@
+= Observability
+
+// event logs
+// this is also achieved by not having any 'hidden' state
+// all state in the database

@@ -1,0 +1,12 @@
+= Inviolability
+
+[quote,https://www.dictionary.com/browse/inviolability]
+--
+the fact or quality of being safe or protected from attack, infringement, destruction, or interference:
+--
+
+// This is the API principle from Atomic Architecture
+
+// Interface segregation
+// The 'I' in SOLID
+// All access via an API, no application has priviledge

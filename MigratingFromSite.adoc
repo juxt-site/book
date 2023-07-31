@@ -1,0 +1,21 @@
+= Migrating from Site
+:toc: left
+
+You might have built, or inherited, a system built with Site and decide that you wish to move its functionality to another system.
+
+It is possible to prototype a system's functionality with Site and then embark on a project to re-implement the functionality in a custom-built system.
+
+This chapter discusses how you should think about migrating from Site.
+
+== Resources and Operations
+
+A Site instance is a set of web resources.
+A web resource is an entity with a URL, some state and some configuration.
+A web resources's state can be accessed by making a request over HTTP.
+
+Each request to a resource maps the method of the request to an operation.
+
+To rewrite a Site system, you should recreate the set of resources and re-implement the operations that these resources delegate to when processing a web request.
+
+Site keeps all resources in a database, but that is an unusual strategy.
+Most web frameworks will expect you to create a router to map a request onto a code function that you provide.

@@ -1,0 +1,4 @@
+= Uniformity
+
+// Uniform code-path for all requests
+// Uniform Interface of REST

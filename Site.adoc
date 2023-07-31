@@ -147,6 +147,39 @@ include::GraphQL.adoc[leveloffset=+1]
 
 This is the forthcoming part on Site deployment.
 
+[[pt-principles]]
+= Design Principles
+
+Site is designed according to a set of design principles.
+
+This part presents and discusses these principles, in the hope that they will continue to be maintained in the future.
+
+Few data systems built today exhibit more than a handful of these principles.
+
+include::DesignPrinciples/Statelessness.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Addressability.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Schemalessness.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Consistency.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Repeatability.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Inviolability.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Security.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Observability.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Traceability.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Immutability.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Bitemporality.adoc[leveloffset=+1]
+
+include::DesignPrinciples/Uniformity.adoc[leveloffset=+1]
+
 = Miscellany
 
 [[ch-token-introspection]]
@@ -168,6 +201,8 @@ include::ErrorResources.adoc[leveloffset=+1]
 include::NextSteps.adoc[leveloffset=+1]
 
 include::AppDevelopment.adoc[leveloffset=+1]
+
+include::MigratingFromSite.adoc[leveloffset=+1]
 
 = Appendices
 

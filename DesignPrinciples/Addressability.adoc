@@ -1,0 +1,21 @@
+= Addressability
+
+All data in the database is stored as time-varying documents.
+
+_Each and every document in a Site instance is identified by a URI._
+
+URIs are specially constructed to make it possible for them to be act as addresses.
+Software is able to route requests to resources solely by using information encoded in the URI.
+In this way, all data is potentially addressable over web protocols
+With Site, the only restriction to accessing data are access controls.
+
+It is important that URIs are globally unique.
+Site insists that URIs are absolute, but provides tooling to ensure that it is easy to migrate resources from one Site instance to another.
+
+****
+This principle is still not as popular in data systems as it should be.
+Sometimes, the only way of addressing data is by specialist knowledge of a particular application.
+Few databases are designed to provide web access to each of their records.
+
+Site rescues this key principle from the early web.
+****
