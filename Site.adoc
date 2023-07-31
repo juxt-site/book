@@ -147,7 +147,7 @@ include::GraphQL.adoc[leveloffset=+1]
 
 This is the forthcoming part on Site deployment.
 
-= Going Further
+= Miscellany
 
 [[ch-token-introspection]]
 include::GSTokenIntrospection.adoc[leveloffset=+1]
@@ -169,8 +169,6 @@ include::NextSteps.adoc[leveloffset=+1]
 
 include::AppDevelopment.adoc[leveloffset=+1]
 
-include::Glossary.adoc[]
-
 = Appendices
 
 [[ch-domain-configuration]]
@@ -181,13 +179,22 @@ include::DomainConfiguration.adoc[leveloffset=+1]
 [appendix]
 include::SiteToolConfiguration.adoc[leveloffset=+1]
 
+= Backmatter
+
 [bibliography]
-= References
+== References
 
 bibliography::[]
 
+include::Glossary.adoc[leveloffset=+1]
+
 [index]
 == Index
+
+[colophon]
+= Colophon
+
+NOTE: TODO
 
 // Local Variables:
 // mode: outline
