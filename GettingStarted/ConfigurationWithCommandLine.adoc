@@ -169,11 +169,10 @@ We'll also need to install a login form:
 site install-bundle juxt/site/login-form
 ----
 
-Finally, register the Swagger UI clients:
+Finally, register the Swagger UI client:
 
 ----
 site install-bundle juxt/site/system-client --client-id swagger-ui
-site install-bundle juxt/site/system-client --client-id remote-swagger-ui
 ----
 
 --
@@ -187,7 +186,7 @@ Browse to https://petstore.swagger.io/?url=http://localhost:4444/_site/openapi.j
 
 Click on Authorize and scroll to the implicit grant-type.
 
-Add `remote-swagger-ui` for the `client-id` and select all the available scopes.
+Add `swagger-ui` for the `client-id` and select all the available scopes.
 
 image::GettingStarted/SwaggerAuthorize.png[Authorize,width=80%]
 
