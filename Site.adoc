@@ -48,6 +48,10 @@ Run each command under your user account (i.e. not as root).
 
 include::GettingStarted/index.adoc[]
 
+=  Creating a Petstore API service
+
+include::Petstore/index.adoc[]
+
 = Foundations
 
 In keeping with our value of <<understanding,Understanding>>, we recommended that you invest time in building up both your working and conceptual knowledge of Site.
