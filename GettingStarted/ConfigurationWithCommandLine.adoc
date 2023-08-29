@@ -104,16 +104,16 @@ We will need to continue to run certain administrative tasks which are only perm
 
 We will need at least one user that has been granted these permissions.
 
-For example, to assign the `Admin` role to `alice`, we would do the following:
+For example, to assign the `SiteAdmin` role to `alice`, we would do the following:
 
 [source]
 ----
-site assign-user-role --username alice --role Admin
+site assign-user-role --username alice --role SiteAdmin
 ----
 
 [IMPORTANT]
 --
-Assign the `Admin` role to the user you created in <<create-a-user>>.
+Assign the `SiteAdmin` role to the user you created in <<create-a-user>>.
 --
 
 == Acquiring a bearer token using our user's password
@@ -154,25 +154,25 @@ To install a bundle, use the `site install-bundle` command.
 Install the following bundles:
 
 ----
-site install-bundle juxt/site/system-api-openapi
+site install juxt/site/system-api-openapi
 ----
 
 Install the OAuth2 authorization endpoint, selecting the password login.
 
 ----
-site install-bundle juxt/site/oauth-authorization-endpoint
+site install juxt/site/oauth-authorization-endpoint
 ----
 
 We'll also need to install a login form:
 
 ----
-site install-bundle juxt/site/login-form
+site install juxt/site/login-form
 ----
 
 Finally, register the Swagger UI client:
 
 ----
-site install-bundle juxt/site/system-client --client-id swagger-ui
+site install juxt/site/system-client --client-id swagger-ui
 ----
 
 --
@@ -201,6 +201,19 @@ TIP: Try accessing some of the API endpoints by opening some operations and clic
 site install-openapi $SITE_HOME/demo/openapi.json
 200 Successfully installed API: Swagger Petstore - OpenAPI 3.0 (version 1.0.17)
 ----
+
+----
+site install demo/petstore/operations
+----
+
+----
+site assign-user-role --username alice --role SiteAdmin
+----
+
+Alternatively, the above steps are all wrapped into the following command
+----
+site install-petstore
+----
 --
 
 == Check the Petstore API with Swagger
@@ -208,8 +221,8 @@ site install-openapi $SITE_HOME/demo/openapi.json
 [IMPORTANT]
 --
 Browse to https://petstore.swagger.io/?url=http://localhost:4444/petstore/openapi.json
+At this point you can authorize and test the APIs, or use curl to check that the API is working.
 --
-
 
 // Local Variables:
 // mode: outline
