@@ -121,7 +121,7 @@ Assign the `Admin` role to the user you created in <<create-a-user>>.
 Now that we have created a user, assigned to the `Admin` role, we can replace our token with one representing our new user.
 
 ----
-site request-token --username alice --password password=$(gum input --password)
+site request-token --username alice --password $(gum input --password)
 ----
 
 [IMPORTANT]
