@@ -2,8 +2,8 @@
 
 == Dependencies
 
-gem install things in Makefile
-
+`bundle install` to install the gem requirements used in the makefile
+`make / make watch` to generate the Pdf
 
 == References
 
