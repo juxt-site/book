@@ -1,0 +1,60 @@
+name: Build Book
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build book
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        name: Cloning repository
+
+      - uses: actions/checkout@v3
+        name: Cloning Look
+        with:
+          repository: "juxt/look"
+          path: "look"
+          ref: "master"
+          token: ${{ secrets.ACCESS_TOKEN }}
+          sparse-checkout: |
+            stationery
+
+      - name: Install clojure
+        uses: DeLaGuardo/setup-clojure@master
+        with:
+          cli: "1.11.1.1403"
+          bb: "latest"
+
+      - name: Install apt dependencies
+        run: |
+          mkdir -p ~/src/github.com/juxt
+          mv look ~/src/github.com/juxt/look
+          sudo apt install -y ruby-dev cmake bison flex g++ pkg-config libglib2.0-dev libcairo2-dev libpango1.0-dev libgdk-pixbuf-2.0-dev libxml2-dev libwebp-dev libzstd-dev openjdk-11-jre
+
+      - uses: ruby/setup-ruby@v1
+        name: Install Ruby
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - uses: reitzig/actions-asciidoctor@v2.0.1
+        name: Install Asciidoctor
+        with:
+          version: 2.0.18
+
+      - name: Build book
+        run: make
+
+      - uses: marvinpinto/action-automatic-releases@latest
+        name: Publish release
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          title: "Latest edition of the book"
+          files: |
+            Site.pdf

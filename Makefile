@@ -9,7 +9,7 @@ fonts:
 	bb -o edn2json $< > $@
 
 %.pdf:	%.adoc
-	asciidoctor-pdf \
+	bundle exec asciidoctor-pdf \
 	-a toc=macro \
 	-r asciidoctor-diagram \
 	-r asciidoctor-mathematical \
