@@ -1,0 +1,64 @@
+= Running in a container
+:toc: left
+
+To simplify installation, it's possible to run the application inside an OCI-compatible container. This is possible for both the server & the command line tool; with a simple alias you'll also be able to transparently interact with the container!
+
+Following this approach means none of the dependencies in the Preparation step are needed.
+
+Popular interfaces for this include Docker, Podman & Kubernetes. The latter is currently untested, but should function as expected.
+
+Instructions here will be focused around Podman, but for these purposes Docker's CLI is 1:1.
+
+== Dependencies
+
+Install a recent enough version of either Docker or Podman
+
+----
+podman --version
+podman version 4.6.0
+----
+
+In the case of Docker, ensure that the daemon is running and that the user has permission to access the containers (set-up for which is out of scope of this guide, a good reference here is the https://wiki.archlinux.org/title/Docker#Installation[Arch Wiki])
+
+== Build the image
+
+First things first; we have to build our site image. A Dockerfile is provided at the root of the repository, so ensure that your terminal working directory is there.
+
+If you'd rather just pull from our Github Container Registry, skip this step.
+
+----
+podman build . -t site-server --format docker
+----
+
+The `--format docker` flag is only needed for Podman as the Dockerfile includes a `HEALTHCHECK` command, otherwise for Docker run without that flag.
+
+Assuming all goes well
+
+== Create a container
+
+Now you have an image built, or you're using the Github Container Registry, you can then create a container. This will set-up everything the container needs for site and return a healthy status when the server can be queried.
+
+----
+podman run --net host site-server
+----
+
+The `--net host` command is needed here as the internal admin server relies on being run on `localhost` for security reasons. As such, it's not reachable from the outside unless you specify that the container should use the host's network instead; allowing `localhost` to resolve against the host rather than the container.
+
+Without that flag, nothing will be able to connect to the admin server.
+
+== Last steps
+
+With that being complete, you should have a running instance of Site. But; how can you query it without anything installed on the host?
+
+Well, you can simply alias the `site` CLI using the following alias
+
+----
+alias site='podman exec -it $(podman container ls --filter=ancestor=localhost/site-server --format "{{.ID}}") site'
+----
+
+And assuming that you've kept the same tag name, you should be able to invoke `site` commands from anywhere! Add that alias to your `~/.profile` or other location your shell will source from.
+
+// Local Variables:
+// mode: outline
+// outline-regexp: "[=]+"
+// End:

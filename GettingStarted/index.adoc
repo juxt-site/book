@@ -1,5 +1,7 @@
 include::Preparation.adoc[leveloffset=+1]
 
+include::Container.adoc[leveloffset=+1]
+
 include::ServerConfiguration.adoc[leveloffset=+1]
 
 include::ServerStartup.adoc[leveloffset=+1]
