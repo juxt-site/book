@@ -157,16 +157,16 @@ Install the following bundles:
 site install juxt/site/system-api-openapi
 ----
 
+We'll need to install a login form:
+
+----
+site install juxt/site/login-form
+----
+
 Install the OAuth2 authorization endpoint, selecting the password login.
 
 ----
 site install juxt/site/oauth-authorization-endpoint
-----
-
-We'll also need to install a login form:
-
-----
-site install juxt/site/login-form
 ----
 
 Finally, register the Swagger UI client:
