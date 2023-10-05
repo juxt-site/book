@@ -1,7 +1,8 @@
 = Running in a container
 :toc: left
 
-To simplify installation, it's possible to run the application inside an OCI-compatible container. This is possible for both the server & the command line tool; with a simple alias you'll also be able to transparently interact with the container!
+To simplify installation, it's possible to run the application inside an OCI-compatible container.
+This is possible for both the server & the command line tool; with a simple alias you'll also be able to transparently interact with the container!
 
 Following this approach means none of the dependencies in the Preparation step are needed.
 
@@ -36,13 +37,15 @@ Assuming all goes well
 
 == Create a container
 
-Now you have an image built, or you're using the Github Container Registry, you can then create a container. This will set-up everything the container needs for site and return a healthy status when the server can be queried.
+Now you have an image built, or you're using the Github Container Registry, you can then create a container.
+This will set-up everything the container needs for site and return a healthy status when the server can be queried.
 
 ----
 podman run --net host site-server
 ----
 
-The `--net host` command is needed here as the internal admin server relies on being run on `localhost` for security reasons. As such, it's not reachable from the outside unless you specify that the container should use the host's network instead; allowing `localhost` to resolve against the host rather than the container.
+The `--net host` command is needed here as the internal admin server relies on being run on `localhost` for security reasons.
+As such, it's not reachable from the outside unless you specify that the container should use the host's network instead; allowing `localhost` to resolve against the host rather than the container.
 
 Without that flag, nothing will be able to connect to the admin server.
 
@@ -56,7 +59,8 @@ Well, you can simply alias the `site` CLI using the following alias
 alias site='podman exec -it $(podman container ls --filter=ancestor=localhost/site-server --format "{{.ID}}") site'
 ----
 
-And assuming that you've kept the same tag name, you should be able to invoke `site` commands from anywhere! Add that alias to your `~/.profile` or other location your shell will source from.
+And assuming that you've kept the same tag name, you should be able to invoke `site` commands from anywhere!
+Add that alias to your `~/.profile` or other location your shell will source from.
 
 // Local Variables:
 // mode: outline
