@@ -63,9 +63,17 @@ NOTE: The `--format docker` flag is only needed for Podman as the Dockerfile inc
 
 TIP: For Arch Linux users, you may need to configure rootless podman or run `podman` with `sudo`.
 
+== Download the container
+
+Rather than building the container yourself, you can pull down the container from the GitHub Container Registry:
+
+----
+docker pull ghcr.io/juxt-site/site-server:latest
+----
+
 == Run the container
 
-Now you have an image built, or you're using the Github Container Registry, you can then create a container.
+Now you have an image built, or pulled from the GitHub Container Registry, you can run the container.
 This will set-up everything the container needs for site and return a healthy status when the server can be queried.
 
 ----
