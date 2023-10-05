@@ -291,7 +291,7 @@ our client application in Auth0.
 .Creating the OAuth 2.0 Client application in Auth0
 [[creating-a-client-application]]
 ====
-In Auth0 we located and selected the menu:Applications[Applications] menu item.
+In Auth0 we located and selected the `Applications/Applications` menu item.
 
 image::Auth0-Applications-Menuitem.png[width=20%]
 

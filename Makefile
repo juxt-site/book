@@ -17,10 +17,9 @@ Site.pdf:	$(wildcard *.adoc) $(wildcard */*.adoc) identity-model.json user-model
 	-a mathematical-format=svg \
 	-a icons=font \
 	-a media=prepress \
-	-a pdf-style=juxt \
 	-a pdf-fontsdir=fonts \
-	-a pdf-style=juxt \
-	-a pdf-stylesdir=themes \
+	-a pdf-themesdir=themes \
+	-a pdf-theme=juxt \
 	-a sectnumlevels=3 \
 	-a sectnums=true \
 	-a title-page=true \
