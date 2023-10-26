@@ -36,15 +36,6 @@ include::Principles.adoc[leveloffset=+3]
 
 = Getting Started
 
-Follow this guide to get up-and-running with your very own Site instance, running locally on your machine.
-If you wish to install Site in production, refer to <<pt-deployment>>.
-
-[NOTE]
---
-All these instructions are for Arch Linux, please amend accordingly for your own platform, if different.
-Run each command under your user account (i.e. not as root).
---
-
 include::GettingStarted/index.adoc[]
 
 =  Creating a Petstore API service
