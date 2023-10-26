@@ -21,8 +21,7 @@ This book is written with Asciidoctor.
 
 Available in PDF, ebook and HTML editions.
 
-HTML edition available at https://text.juxt.site/site-book.html
-
+Latest PDF available at https://github.com/juxt-site/book/releases/download/latest/Site.pdf
 --
 
 toc::[]
