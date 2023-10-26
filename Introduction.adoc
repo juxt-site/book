@@ -6,27 +6,22 @@
 [.lead]
 Site is a place to keep digital records.
 
-Site provides access to records over HTTPS. To supoprt this, each record is
-identified with a Uniform Resource Identifier (URIs) and becomes a web resource.
+Site provides access to records over HTTPS. To supoprt this, each record is identified with a Uniform Resource Identifier (URIs) and becomes a web resource.
 
-Site allows applications to manage these resources, via user-defined APIs.
+Site allows applications to access these resources, via the installation of custom user-defined APIs.
 
-Site can protect resources from unauthorized access, and log access to resources
-when required.
+Site protects resources from unauthorized access, and log access to resources when required.
 
 Site retains a full history.
 
 === What specific problem does Site solve?
 
 [.lead]
-Site makes it quicker and cheaper to develop and deploy high-quality custom API
-services for data-centric applications.
+Site makes it quicker and cheaper to develop and deploy high-quality custom API services for data-centric applications.
 
-In our consulting work, we've found that software projects frequently require
-API services and that these are often written bespoke by teams of developers.
+In our consulting work, we've found that software projects frequently require API services and that these are often written bespoke by teams of developers.
 
-Many API services are mere proxies to an underlying set of data resources in a
-database. Often these APIs do little more than the following repetitive tasks:
+Many API services are mere proxies to an underlying set of data resources in a database. Often these APIs do little more than the following repetitive tasks:
 
 * Route HTTP requests to the relevant code handling the request
 * Transform data coming in and going out, to the required format
@@ -35,8 +30,7 @@ database. Often these APIs do little more than the following repetitive tasks:
 * Document the API for developers of software clients and services that need
   to access the service, e.g. OpenAPI or GraphQL
 
-Where such services can be described _declaratively_, it is possible for Site to
-host them, just like HTML pages.
+Where such services can be described _declaratively_, it is possible for Site to host them, just like HTML pages.
 
 APIs are thereby defined in a _database_, rather than _codebase_.
 
@@ -45,9 +39,7 @@ For this reason, API services hosted by Site should be:
 * faster to develop;
 * easier to secure;
 * fully auditable, able to answer questions about who did what, when;
-* more conformant with the HTTPS protocol, thereby making the API a 'good
-  citizen' when interoperating with other services and components in a wider
-  software architecture.
+* more conformant with the HTTPS protocol, thereby making the API a 'good citizen' when interoperating with other services and components in a wider software architecture.
 
 _So, while Site offers many other features which can be found in other software, the ability to rapidly deploy API services from declarative specifications is unique to Site (to the best of our knowledge)._
 
@@ -57,15 +49,7 @@ Site is server software, written in the Clojure programming language.
 
 Site embeds JUXT's XTDB database and runs on th JVM.
 
-Site can run on a local machine or remote server, on premise or in the cloud.
-
-=== What is the relationship between Site and REST?
-
-REST is a term coined by Roy Fielding to describe a certain _architectural style_, one that underpins the web.
-
-The term 'RESTful' is informally applied to web APIs that try to conform to the principles described in Fielding's original dissertation cite:[rest].
-
-NOTE: TODO, we're not done here
+Site can run on a local machine or remote server, on-premise or in the cloud.
 
 === What is the relationship between Site and OAuth?
 
@@ -101,11 +85,7 @@ It is able to fully interact with other components that play the other OAuth rol
 
 This book teaches Site from 'the ground up'.
 
-This is partly for pedagogical purposes. It is a good idea to learn in depth how
-Site's builds up its secure foundation.
-
-But if you are in a hurry, there are (or will be) quicker 'install packs' and
-Docker images that provide shortcuts to setting up a Site instance.
+This is partly for pedagogical purposes. It is a good idea to learn in depth how Site's builds up its secure foundation.
 
 === Conventions used in this book
 
