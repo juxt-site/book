@@ -15,24 +15,25 @@ Copy over a working configuration file:
 
 ----
 mkdir -p $HOME/.config/site; \
-cp $SITE_HOME/server/etc/config/local-development.edn \
-$HOME/.config/site/config.edn
+cp $SITE_HOME/server/etc/config/local-development-data.edn \
+$HOME/.config/site/config-data.edn
 ----
 --
 
 == Understanding the configuration
 
-The `local-development.edn` configuration instructs our Site instance to run two HTTP listeners, since we want to clearly separate the OAuth2 roles of the Authorization Server (AS) and Resource Server (RS).
-In this configuration, Authorization Server resources start with `http://localhost:4440` and the Resource Server resources start with `http://localhost:4444`.
+The `local-development-data.edn` configuration runs an HTTP listener on port 4444, an XT node, and an admin server on port 4911. Our Site instance to run two HTTP listeners, since we want to clearly separate the OAuth2 roles of the Authorization Server (AS) and Resource Server (RS). `local-development-auth.edn` runs a listener port on 4440 and the admin port on 4912.
+
+In these configurations, Authorization Server resources start with `http://localhost:4440` and the Resource Server resources start with `http://localhost:4444`.
 
 An additional listener is configured which is bound to `localhost` and not accessible over a network.
+
 This listener is used for restricted operations, such as bootstrapping the Site instance with sufficient resources such that it can be securely configured from a remote client.
-By default, this listener port is 4911.
 
 The configuration also tells Site where the XTDB database files should be stored.
 It's important that this is on a disk with sufficient performance and capacity.
 
-Review the config at `$HOME/.config/site/config.edn` and feel free to make any appropriate modifications to reflect your local environment.
+Review the configs at `$HOME/.config/site/config-auth.edn` `$HOME/.config/site/config-data.edn` and  and feel free to make any appropriate modifications to reflect your local environment.
 
 // Local Variables:
 // mode: outline
