@@ -12,6 +12,8 @@ Start the Site instance:
 ----
 $SITE_HOME/server/bin/site-server
 ----
+
+In order to run both instances for auth and data, you will need to change the SITE_PORT and ADMIN_PORT environmental variables in the shell where you run the server. Alternatively if you are using the `start` function, you will just need to point to the correct config file name in your config directory E.G., `config-data` for the data server.
 --
 
 Check the server starts up by looking out for a message on the console similar to the following:
